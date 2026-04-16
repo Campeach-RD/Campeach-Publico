@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="CAMPEACH RD — Red de campamentos seguros y privados en República Dominicana. Reserva tu aventura en naturaleza, glamping y camping.">
+<title>CAMPEACH RD — Escápate a la naturaleza</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏕</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{--green:#0d5c3a;--green-l:#1a7a50;--green-xl:#e8f5ee;--orange:#ff9820;--orange-d:#e07800;--ink:#111110;--ink-2:#3a3a38;--ink-3:#6b6b68;--ink-4:#a8a8a4;--ink-5:#e8e8e4;--ink-6:#f5f4f0;--white:#fefefe;--ff-d:'Playfair Display',Georgia,serif;--ff-b:'DM Sans',-apple-system,sans-serif;--r:12px;--rl:20px;--sh:0 2px 8px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--shl:0 12px 40px rgba(0,0,0,.10),0 4px 12px rgba(0,0,0,.06)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff-b);background:var(--white);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit;border:none}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--ink-4);border-radius:4px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5vw;height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(254,254,254,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--ink-5);transition:box-shadow .3s}
+nav.scrolled{box-shadow:var(--sh)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--ff-d);font-size:20px;font-weight:700;color:var(--green);letter-spacing:-.3px}
+.nav-logo-mark{width:36px;height:36px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .15s}
+.nav-links a:hover{color:var(--green)}
+.nav-cta{background:var(--orange);color:white;padding:9px 22px;border-radius:100px;font-size:14px;font-weight:600;transition:all .15s;box-shadow:0 2px 8px rgba(255,152,32,.3)}
+.nav-cta:hover{background:var(--orange-d);transform:translateY(-1px)}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:68px}
+.hero-content{display:flex;flex-direction:column;justify-content:center;padding:80px 5vw 80px 8vw}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);margin-bottom:24px}
+.hero-eyebrow::before{content:'';display:block;width:32px;height:2px;background:var(--green)}
+h1{font-family:var(--ff-d);font-size:clamp(38px,4.5vw,60px);font-weight:700;line-height:1.1;letter-spacing:-1.5px;color:var(--ink);margin-bottom:20px}
+h1 em{font-style:italic;color:var(--green)}
+.hero-desc{font-size:17px;color:var(--ink-3);line-height:1.7;max-width:420px;margin-bottom:40px}
+.hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.btn-p{background:var(--green);color:white;padding:14px 28px;border-radius:100px;font-size:15px;font-weight:600;transition:all .2s;box-shadow:0 4px 16px rgba(13,92,58,.25);display:inline-flex;align-items:center;gap:8px}
+.btn-p:hover{background:var(--green-l);transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,92,58,.3)}
+.btn-s{color:var(--ink-2);font-size:15px;font-weight:500;display:inline-flex;align-items:center;gap:6px;padding:14px 0;border-bottom:1.5px solid var(--ink-5);transition:all .2s}
+.btn-s:hover{color:var(--green);border-color:var(--green)}
+.hero-stats{display:flex;gap:32px;margin-top:52px;padding-top:32px;border-top:1px solid var(--ink-5)}
+.sn{font-family:var(--ff-d);font-size:28px;font-weight:700;color:var(--ink);letter-spacing:-1px}
+.sl{font-size:12px;color:var(--ink-4);margin-top:2px;font-weight:500}
+.hero-visual{position:relative;overflow:hidden}
+.hero-img{width:100%;height:100%;object-fit:cover;filter:brightness(.95) saturate(1.05)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,92,58,.15) 0%,transparent 60%)}
+.hero-badge{position:absolute;bottom:40px;left:40px;background:white;border-radius:var(--r);padding:14px 18px;box-shadow:var(--shl);display:flex;align-items:center;gap:12px}
+.hb-icon{width:40px;height:40px;background:var(--green-xl);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.hb-text{font-size:13px;font-weight:600;color:var(--ink)}
+.hb-sub{font-size:11px;color:var(--ink-4);margin-top:1px}
+
+/* SECTIONS */
+section{padding:90px 8vw}
+.ey{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ey::before{content:'';width:24px;height:2px;background:var(--green);display:block}
+h2{font-family:var(--ff-d);font-size:clamp(26px,3.5vw,42px);font-weight:700;letter-spacing:-1px;line-height:1.15;color:var(--ink);margin-bottom:14px}
+h2 em{font-style:italic;color:var(--green)}
+.sd{font-size:16px;color:var(--ink-3);max-width:500px;line-height:1.7}
+
+/* COMO */
+.como{background:var(--ink-6);border-radius:32px;margin:0 4vw;padding:72px 6vw}
+.como-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:56px}
+.cn{font-family:var(--ff-d);font-size:72px;font-weight:700;color:var(--ink-5);line-height:1;margin-bottom:-16px}
+.ct{font-size:18px;font-weight:600;color:var(--ink);margin-bottom:8px}
+.cd{font-size:14px;color:var(--ink-3);line-height:1.7}
+
+/* CAMPS */
+.camps-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;gap:20px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.pill{padding:8px 18px;border-radius:100px;font-size:13px;font-weight:500;border:1.5px solid var(--ink-5);background:white;color:var(--ink-3);cursor:pointer;transition:all .15s}
+.pill:hover{border-color:var(--green);color:var(--green)}
+.pill.active{background:var(--green);border-color:var(--green);color:white}
+.camps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+.cc{background:white;border-radius:var(--rl);overflow:hidden;border:1px solid var(--ink-5);transition:all .25s;cursor:pointer}
+.cc:hover{transform:translateY(-4px);box-shadow:var(--shl);border-color:transparent}
+.ci{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--ink-6)}
+.ci-ph{width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,var(--green-xl),#c8e6d4);display:flex;align-items:center;justify-content:center;font-size:48px}
+.cb-badge{position:absolute;top:12px;left:12px;background:white;border-radius:100px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--green);box-shadow:var(--sh)}
+.cb{padding:20px}
+.cr{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);margin-bottom:6px}
+.cn2{font-family:var(--ff-d);font-size:20px;font-weight:700;color:var(--ink);margin-bottom:8px;letter-spacing:-.3px}
+.ctags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.ctag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;background:var(--ink-6);color:var(--ink-3)}
+.ctag.g{background:var(--green-xl);color:var(--green)}
+.cfooter{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--ink-5)}
+.cpd{font-size:11px;color:var(--ink-4)}
+.cpv{font-family:var(--ff-d);font-size:22px;font-weight:700;color:var(--ink);letter-spacing:-.5px}
+.cpu{font-size:12px;color:var(--ink-4)}
+.cbtn{background:var(--green);color:white;padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;transition:all .15s}
+.cbtn:hover{background:var(--green-l)}
+
+/* TESTIMONIOS */
+.test-section{background:var(--green)}
+.test-section .ey,.test-section h2,.test-section .sd{color:rgba(255,255,255,.9)}
+.test-section .ey::before{background:rgba(255,255,255,.4)}
+.test-section h2 em{color:rgba(255,255,255,.65);font-style:italic}
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.tc{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:var(--rl);padding:24px}
+.ts{color:var(--orange);font-size:14px;margin-bottom:14px;letter-spacing:2px}
+.tt{font-size:15px;color:rgba(255,255,255,.9);line-height:1.7;margin-bottom:18px;font-style:italic}
+.ta{display:flex;align-items:center;gap:10px}
+.tav{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white}
+.tan{font-size:13px;font-weight:600;color:white}
+.tac{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px}
+
+/* FORM */
+.fw{display:grid;grid-template-columns:1fr 1.2fr;gap:72px;align-items:start}
+.fi{position:sticky;top:100px}
+.fi-list{margin-top:32px;display:flex;flex-direction:column;gap:20px}
+.fi-item{display:flex;gap:14px;align-items:flex-start}
+.fi-icon{width:40px;height:40px;flex-shrink:0;background:var(--green-xl);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.fi-title{font-size:14px;font-weight:600;color:var(--ink)}
+.fi-desc{font-size:13px;color:var(--ink-3);margin-top:2px}
+.form-card{background:white;border-radius:24px;border:1px solid var(--ink-5);box-shadow:var(--shl);overflow:hidden}
+.fc-hdr{background:var(--green);padding:24px 28px;color:white}
+.fc-title{font-family:var(--ff-d);font-size:22px;font-weight:700;letter-spacing:-.3px}
+.fc-sub{font-size:13px;color:rgba(255,255,255,.7);margin-top:4px}
+.fc-body{padding:28px}
+.fg{margin-bottom:18px}
+.fg label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink-3);margin-bottom:7px}
+.fg input,.fg select,.fg textarea{width:100%;border:1.5px solid var(--ink-5);border-radius:10px;padding:11px 14px;font-size:14px;color:var(--ink);font-family:var(--ff-b);background:var(--ink-6);transition:all .15s;outline:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--green);background:white;box-shadow:0 0 0 3px rgba(13,92,58,.1)}
+.fg textarea{resize:vertical;min-height:90px;line-height:1.6}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fsub{width:100%;background:var(--orange);color:white;padding:14px;border-radius:100px;font-size:15px;font-weight:700;transition:all .2s;box-shadow:0 4px 16px rgba(255,152,32,.3);margin-top:4px}
+.fsub:hover{background:var(--orange-d);transform:translateY(-1px)}
+.fsub:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.falt{text-align:center;margin-top:14px;font-size:13px;color:var(--ink-4)}
+.falt a{color:#25D366;font-weight:600;display:inline-flex;align-items:center;gap:5px}
+.f-ok{display:none;text-align:center;padding:40px 28px}
+.f-ok-icon{font-size:56px;margin-bottom:16px}
+.f-ok-title{font-family:var(--ff-d);font-size:24px;font-weight:700;color:var(--green);margin-bottom:10px}
+.f-ok-desc{font-size:14px;color:var(--ink-3);line-height:1.7}
+
+/* FOOTER */
+footer{background:var(--ink);padding:64px 8vw 32px}
+.ft{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.fbn{font-family:var(--ff-d);font-size:22px;font-weight:700;color:white;margin-bottom:10px}
+.fbd{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7}
+.fsoc{display:flex;gap:10px;margin-top:20px}
+.fsoc a{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:15px;color:rgba(255,255,255,.7);transition:all .15s;text-decoration:none}
+.fsoc a:hover{background:var(--green);color:white}
+.fct{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);margin-bottom:16px}
+.fl{list-style:none;display:flex;flex-direction:column;gap:10px}
+.fl a{font-size:13px;color:rgba(255,255,255,.6);transition:color .15s}
+.fl a:hover{color:white}
+.fb{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.fc{font-size:12px;color:rgba(255,255,255,.3)}
+
+/* MODAL */
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
+.mo.open{opacity:1;pointer-events:all}
+.md{background:white;border-radius:24px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;transform:translateY(20px) scale(.97);transition:transform .25s;box-shadow:0 32px 80px rgba(0,0,0,.2)}
+.mo.open .md{transform:translateY(0) scale(1)}
+.mc{position:absolute;top:16px;right:16px;width:36px;height:36px;background:white;border-radius:50%;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh);z-index:10}
+.mbn{font-family:var(--ff-d);font-size:28px;font-weight:700;color:var(--ink);letter-spacing:-.5px;margin-bottom:14px}
+.mfeats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.mfeat{padding:5px 13px;border-radius:100px;background:var(--ink-6);color:var(--ink-3);font-size:12px;font-weight:500}
+.mpb{background:var(--green-xl);border-radius:var(--r);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.mpv{font-family:var(--ff-d);font-size:28px;font-weight:700;color:var(--green)}
+.mcr{display:flex;gap:10px}
+.mcm{flex:1;background:var(--green);color:white;padding:13px;border-radius:100px;font-size:14px;font-weight:700;transition:all .15s;border:none;cursor:pointer}
+.mcm:hover{background:var(--green-l)}
+.mcw{background:#25D366;color:white;padding:13px 18px;border-radius:100px;font-size:14px;font-weight:700;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center}
+.mcw:hover{background:#1da851}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;background:var(--ink);color:white;padding:14px 20px;border-radius:var(--r);font-size:14px;font-weight:500;box-shadow:var(--shl);transform:translateX(120%);transition:transform .3s cubic-bezier(.16,1,.3,1);z-index:999;max-width:320px}
+.toast.show{transform:translateX(0)}
+.toast.success{background:var(--green)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.anim{opacity:0}
+.anim.vis{animation:fadeUp .6s cubic-bezier(.16,1,.3,1) forwards}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-visual{height:50vh}
+  .hero-content{padding:60px 5vw}
+  .fw{grid-template-columns:1fr;gap:40px}
+  .fi{position:static}
+  .ft{grid-template-columns:1fr 1fr}
+  .tg{grid-template-columns:1fr}
+  .como-grid{grid-template-columns:1fr;gap:24px}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  section{padding:64px 5vw}
+  .hero-stats{gap:20px}
+  .camps-grid{grid-template-columns:1fr}
+  .ft{grid-template-columns:1fr}
+  .fb{flex-direction:column;text-align:center}
+  .fg2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-mark">🏕</div>
+    CAMPEACH RD
+  </a>
+  <ul class="nav-links">
+    <li><a href="#campamentos">Destinos</a></li>
+    <li><a href="#como">Cómo funciona</a></li>
+    <li><a href="#testimonios">Reseñas</a></li>
+    <li><a href="#equipos-sec">Equipos</a></li>
+  </ul>
+  <a href="#reservar" class="nav-cta">Reservar ahora</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">República Dominicana · 24 destinos</div>
+    <h1>La naturaleza<br>te está <em>esperando</em></h1>
+    <p class="hero-desc">Campamentos seguros, privados y organizados en los rincones más hermosos de RD. Tú solo apareces — nosotros hacemos el resto.</p>
+    <div class="hero-actions">
+      <a href="#campamentos" class="btn-p">
+        Explorar destinos
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#como" class="btn-s">Cómo funciona</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="sn">560+</div><div class="sl">Aventureros</div></div>
+      <div><div class="sn">24</div><div class="sl">Destinos</div></div>
+      <div><div class="sn">365</div><div class="sl">Días al año</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&q=80&auto=format&fit=crop" alt="Camping RD" class="hero-img">
+    <div class="hero-overlay"></div>
+    <div class="hero-badge">
+      <div class="hb-icon">⭐</div>
+      <div><div class="hb-text">4.9 / 5.0</div><div class="hb-sub">+200 reseñas verificadas</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO -->
+<div id="como" style="padding:40px 4vw">
+  <div class="como">
+    <div class="ey">Simple y rápido</div>
+    <h2>Reserva en <em>3 pasos</em></h2>
+    <p class="sd">Sin complicaciones. Sin sorpresas. Solo tú, tu grupo y la naturaleza.</p>
+    <div class="como-grid">
+      <div class="anim"><div class="cn">01</div><div class="ct">Elige tu destino</div><div class="cd">Explora 24 campamentos en toda RD — playa, montaña, río o bosque. Filtra por experiencia, precio y región.</div></div>
+      <div class="anim"><div class="cn">02</div><div class="ct">Reserva y paga</div><div class="cd">Llena el formulario en minutos. Confirmamos disponibilidad y recibes todos los detalles por WhatsApp.</div></div>
+      <div class="anim"><div class="cn">03</div><div class="ct">Disfruta sin preocuparte</div><div class="cd">Todo está coordinado — acceso, horarios, suplidor. Tú solo llega y desconéctate.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CAMPAMENTOS -->
+<section id="campamentos">
+  <div class="camps-hdr">
+    <div><div class="ey">Nuestros destinos</div><h2>Escoge tu <em>aventura</em></h2></div>
+    <p class="sd" style="max-width:280px;font-size:14px">Todos verificados, seguros y privados.</p>
+  </div>
+  <div class="filters">
+    <button class="pill active" onclick="filterC('todos',this)">Todos</button>
+    <button class="pill" onclick="filterC('playa',this)">🏖 Playa</button>
+    <button class="pill" onclick="filterC('montana',this)">⛰ Montaña</button>
+    <button class="pill" onclick="filterC('rio',this)">🏞 Río</button>
+    <button class="pill" onclick="filterC('bosque',this)">🌲 Bosque</button>
+    <button class="pill" onclick="filterC('norte',this)">📍 Norte</button>
+    <button class="pill" onclick="filterC('sur',this)">📍 Sur</button>
+    <button class="pill" onclick="filterC('este',this)">📍 Este</button>
+  </div>
+  <div class="camps-grid" id="cgrid"><div style="grid-column:1/-1;text-align:center;padding:40px;color:#a8a8a4">Cargando destinos...</div></div>
+</section>
+
+<!-- EQUIPOS -->
+<section id="equipos-sec" style="background:var(--ink-6);padding:80px 8vw">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
+      <div>
+        <div class="ey">Alquiler de equipos</div>
+        <h2>Llega <em>sin cargar</em> nada</h2>
+        <p class="sd">Alquila carpas, sleeping bags y accesorios en Santo Domingo. Entrega el mismo día.</p>
+        <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px" id="elist"></div>
+        <a href="#reservar" class="btn-p" style="margin-top:28px;display:inline-flex">Incluir equipos en mi reserva</a>
+      </div>
+      <div style="background:white;border-radius:24px;padding:28px;box-shadow:var(--shl)">
+        <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:16px">Zonas de entrega en SD</div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--ink-5)"><div style="width:36px;height:36px;background:var(--green-xl);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px">📍</div><div><div style="font-size:13px;font-weight:600">Bella Vista</div><div style="font-size:11px;color:#a8a8a4">Lun–Dom · 7am–9pm</div></div></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--ink-5)"><div style="width:36px;height:36px;background:var(--green-xl);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px">📍</div><div><div style="font-size:13px;font-weight:600">Cacicazgos</div><div style="font-size:11px;color:#a8a8a4">Lun–Dom · 7am–9pm</div></div></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 0"><div style="width:36px;height:36px;background:var(--green-xl);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px">📍</div><div><div style="font-size:13px;font-weight:600">Plaza Las Colinas</div><div style="font-size:11px;color:#a8a8a4">Lun–Dom · 7am–9pm</div></div></div>
+        </div>
+        <div style="margin-top:14px;padding:12px;background:var(--green-xl);border-radius:10px;font-size:12px;color:var(--green);font-weight:500">✓ Retiro el mismo día o cortesía el día anterior desde las 7pm<br>✓ Retorno máximo 8pm del día acordado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="test-section" id="testimonios">
+  <div class="ey">Lo que dicen</div>
+  <h2>Aventureros que <em>ya vivieron</em> la experiencia</h2>
+  <div class="tg">
+    <div class="tc"><div class="ts">★★★★★</div><p class="tt">"Una experiencia increíble de principio a fin. Todo organizado, el campamento impecable. ¡Ya estamos planeando la próxima!"</p><div class="ta"><div class="tav">MG</div><div><div class="tan">María G.</div><div class="tac">Villa Altagracia</div></div></div></div>
+    <div class="tc"><div class="ts">★★★★★</div><p class="tt">"Llevé a mi familia y fue la mejor decisión. Los niños no querían irse. CAMPEACH tiene todo bajo control."</p><div class="ta"><div class="tav">RR</div><div><div class="tan">Randy R.</div><div class="tac">Los Cacaos</div></div></div></div>
+    <div class="tc"><div class="ts">★★★★★</div><p class="tt">"El proceso fue facilísimo. Les escribí por WhatsApp, en horas tenía todo confirmado. Sin sorpresas, exactamente como prometieron."</p><div class="ta"><div class="tav">SS</div><div><div class="tan">Simon S.</div><div class="tac">Jarabacoa</div></div></div></div>
+  </div>
+</section>
+
+<!-- FORMULARIO -->
+<section id="reservar">
+  <div class="fw">
+    <div class="fi">
+      <div class="ey">Reserva tu lugar</div>
+      <h2>Empieza tu <em>aventura</em> ahora</h2>
+      <p class="sd">Llena el formulario y te confirmamos disponibilidad en menos de 24 horas.</p>
+      <div class="fi-list">
+        <div class="fi-item"><div class="fi-icon">✓</div><div><div class="fi-title">Respuesta en menos de 24h</div><div class="fi-desc">Confirmamos disponibilidad y precios de inmediato</div></div></div>
+        <div class="fi-item"><div class="fi-icon">🔒</div><div><div class="fi-title">Reserva segura</div><div class="fi-desc">Paga solo cuando tengas la confirmación</div></div></div>
+        <div class="fi-item"><div class="fi-icon">💬</div><div><div class="fi-title">Atención personalizada</div><div class="fi-desc">Te acompañamos durante todo el proceso</div></div></div>
+        <div class="fi-item"><div class="fi-icon">🔄</div><div><div class="fi-title">Cancela sin costo</div><div class="fi-desc">Política flexible para cambios de fecha</div></div></div>
+      </div>
+    </div>
+    <div class="form-card">
+      <div class="fc-hdr"><div class="fc-title">Solicitar reserva</div><div class="fc-sub">Sin compromiso — confirmamos disponibilidad primero</div></div>
+      <div class="fc-body" id="fbody">
+        <form id="rform" onsubmit="handleSub(event)">
+          <div class="fg"><label>Nombre completo *</label><input type="text" name="nombre" required placeholder="Tu nombre y apellidos"></div>
+          <div class="fg2">
+            <div class="fg"><label>WhatsApp *</label><input type="tel" name="tel" required placeholder="809-000-0000"></div>
+            <div class="fg"><label>Email</label><input type="email" name="email" placeholder="correo@ejemplo.com"></div>
+          </div>
+          <div class="fg"><label>Campamento *</label><select name="campamento" required id="csel"><option value="">— Seleccionar destino —</option></select></div>
+          <div class="fg2">
+            <div class="fg"><label>Fecha del evento *</label><input type="date" name="fecha" required id="fdate"></div>
+            <div class="fg"><label>Fecha de salida</label><input type="date" name="fecha_salida"></div>
+          </div>
+          <div class="fg2">
+            <div class="fg"><label>Adultos *</label><input type="number" name="adultos" required min="1" value="2"></div>
+            <div class="fg"><label>Niños (3-12 años)</label><input type="number" name="ninos" min="0" value="0"></div>
+          </div>
+          <div class="fg2">
+            <div class="fg"><label>¿Mascotas?</label><select name="mascotas"><option value="No">No</option><option value="Sí, 1">Sí, 1</option><option value="Sí, 2+">Sí, 2+</option></select></div>
+            <div class="fg"><label>¿Equipos?</label><select name="equipos"><option value="No">Traemos propios</option><option value="Carpas">Sí, carpas</option><option value="Completo">Equipos completos</option></select></div>
+          </div>
+          <div class="fg"><label>¿Cómo nos encontraste?</label><select name="fuente"><option>Instagram</option><option>Referido</option><option>WhatsApp</option><option>Google</option><option>TikTok</option></select></div>
+          <div class="fg"><label>Notas</label><textarea name="notas" placeholder="Ocasión especial, restricciones, preguntas..."></textarea></div>
+          <button type="submit" class="fsub" id="fbtn">Enviar solicitud de reserva →</button>
+          <div class="falt">o escríbenos por <a href="https://wa.me/18299370674" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.99.576 3.847 1.576 5.41L2.047 22l4.703-1.511C8.229 21.454 10.07 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg> WhatsApp</a></div>
+        </form>
+      </div>
+      <div class="f-ok" id="fok">
+        <div class="f-ok-icon">🎉</div>
+        <div class="f-ok-title">¡Solicitud recibida!</div>
+        <p class="f-ok-desc">Te contactaremos en menos de 24 horas por WhatsApp para confirmar disponibilidad y enviarte la cotización.<br><br>¡Prepárate para tu próxima aventura! 🏕️🌿</p>
+        <a href="https://wa.me/18299370674" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:white;padding:12px 24px;border-radius:100px;font-weight:600;font-size:14px;margin-top:20px;text-decoration:none">💬 Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <div>
+      <div class="fbn">🏕 CAMPEACH RD</div>
+      <div class="fbd">Red de campamentos seguros y privados en República Dominicana. Abiertos 365 días al año.</div>
+      <div class="fsoc">
+        <a href="https://instagram.com/campeachrd" target="_blank">📸</a>
+        <a href="https://tiktok.com/@campeachrd" target="_blank">🎵</a>
+        <a href="https://wa.me/18299370674" target="_blank">💬</a>
+        <a href="https://youtube.com/@campeachrd" target="_blank">▶</a>
+      </div>
+    </div>
+    <div>
+      <div class="fct">Destinos</div>
+      <ul class="fl"><li><a href="#campamentos">Ver todos los campamentos</a></li><li><a href="#campamentos">Camping de playa</a></li><li><a href="#campamentos">Camping de montaña</a></li><li><a href="#equipos-sec">Alquiler de equipos</a></li></ul>
+    </div>
+    <div>
+      <div class="fct">Empresa</div>
+      <ul class="fl"><li><a href="#como">Cómo funciona</a></li><li><a href="#testimonios">Reseñas</a></li><li><a href="https://instagram.com/campeachrd" target="_blank">@campeachrd</a></li><li><a href="mailto:campingsrd@gmail.com">campingsrd@gmail.com</a></li></ul>
+    </div>
+    <div>
+      <div class="fct">Reservas</div>
+      <ul class="fl"><li><a href="#reservar">Solicitar reserva</a></li><li><a href="https://wa.me/18299370674" target="_blank">829-937-0674</a></li><li><a href="#reservar">Grupos y eventos</a></li></ul>
+    </div>
+  </div>
+  <div class="fb"><div class="fc">© 2026 CAMPEACH RD, S.R.L.</div><div class="fc">Hecho con ❤️ en República Dominicana</div></div>
+</footer>
+
+<!-- MODAL -->
+<div class="mo" id="mo" onclick="if(event.target===this)closeMo()">
+  <div class="md" style="position:relative"><button class="mc" onclick="closeMo()">✕</button><div id="mi"></div></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const SB_URL="https://rvufbrvdfbaindmwtfsu.supabase.co";
+const SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ2dWZicnZkZmJhaW5kbXd0ZnN1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyODM0ODMsImV4cCI6MjA5MTg1OTQ4M30.UCxO_m75fDGSpa3h74RSzFivy2_gGhPxpxewp7yAFTY";
+const H={"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=representation"};
+
+async function sbQ(t,p={}){
+  let u=`${SB_URL}/rest/v1/${t}?`;
+  if(p.select)u+=`select=${encodeURIComponent(p.select)}&`;
+  if(p.order)u+=`order=${p.order}&`;
+  if(p.limit)u+=`limit=${p.limit}&`;
+  if(p.filter)u+=`${p.filter}&`;
+  const r=await fetch(u,{headers:H});
+  if(!r.ok)throw new Error(await r.text());
+  return r.json();
+}
+async function sbI(t,d){
+  const r=await fetch(`${SB_URL}/rest/v1/${t}`,{method:"POST",headers:H,body:JSON.stringify(d)});
+  if(!r.ok)throw new Error(await r.text());
+  return r.json();
+}
+
+let camps=[];
+const IMGS={Playa:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80",Montaña:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80",Bosque:"https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80",Selva:"https://images.unsplash.com/photo-1542401886-65d6c61db217?w=600&q=80",Llano:"https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80"};
+const DEMO=[{nombre:"Villa Altagracia",region:"Norte",precio_base:750,relieve:"Bosque",bal:"Río, Cascada",v4x4_required:false,pedidos_ytd:38},{nombre:"Los Cacaos",region:"Sur",precio_base:3500,relieve:"Montaña",bal:"Río",v4x4_required:false,pedidos_ytd:7},{nombre:"Jarabacoa",region:"Norte",precio_base:1500,relieve:"Montaña",bal:"Río, Cascada",v4x4_required:false,pedidos_ytd:8},{nombre:"El Valle, Samaná",region:"Este",precio_base:700,relieve:"Playa",bal:"Playa",v4x4_required:false,pedidos_ytd:12},{nombre:"Santiago",region:"Norte",precio_base:900,relieve:"Bosque",bal:"Presa",v4x4_required:false,pedidos_ytd:17},{nombre:"Punta Cana",region:"Este",precio_base:1700,relieve:"Playa",bal:"Playa",v4x4_required:false,pedidos_ytd:4},{nombre:"Samaná / Rincón",region:"Este",precio_base:700,relieve:"Llano",bal:"Piscina",v4x4_required:false,pedidos_ytd:5},{nombre:"Taiku",region:"Norte",precio_base:600,relieve:"Bosque",bal:"Río",v4x4_required:true,pedidos_ytd:10},{nombre:"Monseñor",region:"Norte",precio_base:1000,relieve:"Bosque",bal:"Presa",v4x4_required:false,pedidos_ytd:4},{nombre:"Ocoa",region:"Norte",precio_base:800,relieve:"Montaña",bal:"Río",v4x4_required:false,pedidos_ytd:3},{nombre:"Hato Mayor",region:"Este",precio_base:1100,relieve:"Selva",bal:"Río, Cascada",v4x4_required:false,pedidos_ytd:3},{nombre:"Constanza",region:"Norte",precio_base:1500,relieve:"Montaña",bal:"No",v4x4_required:false,pedidos_ytd:1}];
+
+async function loadCamps(){
+  try{
+    const d=await sbQ("campamentos",{select:"nombre,region,activo,precio_base,relieve,bal,v4x4_required,capacidad_max,pedidos_ytd",filter:"activo=eq.true",order:"pedidos_ytd.desc"});
+    camps=d.filter(c=>c.precio_base);
+  }catch(e){camps=DEMO;}
+  renderCamps(camps);
+  populateSel(camps);
+}
+
+function renderCamps(list){
+  const g=document.getElementById("cgrid");
+  if(!list.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:#a8a8a4">Sin resultados para ese filtro.</div>';return;}
+  g.innerHTML=list.map((c,i)=>{
+    const img=IMGS[c.relieve]||IMGS.Bosque;
+    const tags=[c.bal&&c.bal!=="No"?c.bal:null,c.relieve,c.v4x4_required?"4x4":null].filter(Boolean);
+    const pop=c.pedidos_ytd>5;
+    return `<div class="cc anim" style="animation-delay:${i*.05}s" onclick="openMo(${i})">
+      <div style="position:relative"><img src="${img}" alt="${c.nombre}" class="ci" loading="lazy">${pop?'<div class="cb-badge">⭐ Popular</div>':''}</div>
+      <div class="cb">
+        <div class="cr">${c.region}</div>
+        <div class="cn2">${c.nombre}</div>
+        <div class="ctags">${tags.map(t=>`<span class="ctag ${t===c.bal?'g':''}">${t}</span>`).join('')}</div>
+        <div class="cfooter">
+          <div class="camp-price"><div class="cpd">Desde</div><span class="cpv">RD$${Number(c.precio_base).toLocaleString('es-DO')}</span><span class="cpu"> / persona</span></div>
+          <button class="cbtn">Reservar</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  setTimeout(()=>{document.querySelectorAll('.anim').forEach(el=>{const ob=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ob.disconnect();}})},{threshold:.1});ob.observe(el);});},50);
+}
+
+function populateSel(list){
+  const s=document.getElementById("csel");
+  list.forEach(c=>{const o=document.createElement("option");o.value=c.nombre;o.textContent=`${c.nombre} — desde RD$${Number(c.precio_base).toLocaleString('es-DO')}/pers.`;s.appendChild(o);});
+  s.add(new Option("No sé — ayúdenme a elegir","Ayudarme a elegir"));
+}
+
+function filterC(t,btn){
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  if(t==='todos'){renderCamps(camps);return;}
+  const f={playa:c=>c.relieve==='Playa'||c.bal?.includes('Playa'),montana:c=>c.relieve==='Montaña',rio:c=>c.bal?.includes('Río')||c.bal?.includes('Cascada'),bosque:c=>c.relieve==='Bosque'||c.relieve==='Selva',norte:c=>c.region==='Norte',sur:c=>c.region==='Sur',este:c=>c.region==='Este'};
+  renderCamps(camps.filter(f[t]||(_=>true)));
+}
+
+function openMo(i){
+  const c=camps[i];if(!c)return;
+  const img=IMGS[c.relieve]||IMGS.Bosque;
+  const tags=[c.bal&&c.bal!=='No'?c.bal:null,c.relieve,c.v4x4_required?'Requiere 4x4':null,c.capacidad_max?`Cap. ${c.capacidad_max}p`:null].filter(Boolean);
+  document.getElementById("mi").innerHTML=`
+    <img src="${img}" alt="${c.nombre}" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:24px 24px 0 0">
+    <div style="padding:28px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green);margin-bottom:8px">${c.region}</div>
+      <div class="mbn">${c.nombre}</div>
+      <div class="mfeats">${tags.map(t=>`<span class="mfeat">${t}</span>`).join('')}</div>
+      <div class="mpb">
+        <div><div style="font-size:12px;color:var(--green);font-weight:600">Desde</div><div class="mpv">RD$${Number(c.precio_base).toLocaleString('es-DO')}</div><div style="font-size:12px;color:var(--green)">por persona / noche</div></div>
+        <div style="font-size:13px;color:var(--green);text-align:right">${c.pedidos_ytd>5?`⭐ ${c.pedidos_ytd} reservas este año`:'✓ Disponible'}</div>
+      </div>
+      <div class="mcr">
+        <button class="mcm" onclick="document.getElementById('csel').value='${c.nombre}';closeMo();document.getElementById('reservar').scrollIntoView({behavior:'smooth'})">Reservar este campamento</button>
+        <a href="https://wa.me/18299370674?text=${encodeURIComponent('Hola! Me interesa el campamento de '+c.nombre+'. ¿Pueden darme información y precios?')}" target="_blank" class="mcw">💬 WA</a>
+      </div>
+    </div>`;
+  document.getElementById("mo").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+function closeMo(){document.getElementById("mo").classList.remove("open");document.body.style.overflow="";}
+
+async function handleSub(e){
+  e.preventDefault();
+  const btn=document.getElementById("fbtn");
+  btn.disabled=true;btn.textContent="Enviando...";
+  const d=Object.fromEntries(new FormData(e.target));
+  try{
+    await sbI("clientes",{nombre:d.nombre,tel:d.tel,email:d.email||null,etiqueta:"Lead",estado:"Lead",fuente:d.fuente});
+    await sbI("pipeline",{cliente:d.nombre,campamento:d.campamento,fecha:d.fecha||new Date().toISOString().split("T")[0],estado:"Consulta",adultos:parseInt(d.adultos)||2,noches:1,urgencia:"media",notas:d.notas||""});
+  }catch(err){console.warn("SB:",err.message);}
+  const msg=encodeURIComponent(`🆕 NUEVA RESERVA DESDE SITIO WEB\n\nNombre: ${d.nombre}\nTel: ${d.tel}\nCampamento: ${d.campamento}\nFecha: ${d.fecha||'Por definir'}\nAdultos: ${d.adultos} | Niños: ${d.ninos||0}\nMascotas: ${d.mascotas}\nEquipos: ${d.equipos}\nFuente: ${d.fuente}\n\nNotas: ${d.notas||'Ninguna'}\n\n⚡ campeachrd.com`);
+  setTimeout(()=>window.open(`https://wa.me/18299370674?text=${msg}`,"_blank"),1200);
+  document.getElementById("fbody").style.display="none";
+  document.getElementById("fok").style.display="block";
+  toast("¡Solicitud enviada! Te contactamos pronto 🌿","success");
+}
+
+async function loadEquip(){
+  const el=document.getElementById("elist");
+  try{
+    const d=await sbQ("equipos",{select:"nombre,precio_noche,disponibles,unidades",order:"precio_noche.asc"});
+    el.innerHTML=d.slice(0,5).map(e=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--ink-5)"><div><div style="font-size:14px;font-weight:600;color:var(--ink)">${e.nombre}</div><div style="font-size:12px;color:#a8a8a4">${e.disponibles}/${e.unidades} disponibles</div></div><div style="font-size:15px;font-weight:700;color:var(--green)">RD$${Number(e.precio_noche).toLocaleString()}/noche</div></div>`).join('');
+  }catch(err){
+    el.innerHTML=[{n:"Carpa 3 personas",p:800},{n:"Carpa 4 personas",p:1000},{n:"Sleeping bag",p:300},{n:"Sleeping pad doble",p:500}].map(e=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--ink-5)"><span style="font-size:14px;font-weight:600">${e.n}</span><span style="font-weight:700;color:var(--green)">RD$${e.p}/noche</span></div>`).join('');
+  }
+}
+
+function toast(msg,type=""){const t=document.getElementById("toast");t.textContent=msg;t.className="toast "+type;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),4000);}
+
+window.addEventListener("scroll",()=>document.getElementById("nav").classList.toggle("scrolled",window.scrollY>10));
+document.getElementById("fdate").min=new Date().toISOString().split("T")[0];
+
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.anim').forEach(el=>obs.observe(el));
+
+loadCamps();
+loadEquip();
+</script>
+</body>
+</html>
