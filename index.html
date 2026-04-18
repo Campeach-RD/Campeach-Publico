@@ -154,7 +154,7 @@ footer{background:var(--ink);padding:64px 8vw 32px}
 /* MODAL */
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
 .mo.open{opacity:1;pointer-events:all}
-.md{background:white;border-radius:24px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;transform:translateY(20px) scale(.97);transition:transform .25s;box-shadow:0 32px 80px rgba(0,0,0,.2)}
+.md{background:white;overflow:hidden;border-radius:24px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;transform:translateY(20px) scale(.97);transition:transform .25s;box-shadow:0 32px 80px rgba(0,0,0,.2)}
 .mo.open .md{transform:translateY(0) scale(1)}
 .mc{position:absolute;top:16px;right:16px;width:36px;height:36px;background:white;border-radius:50%;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh);z-index:10}
 .mbn{font-family:var(--ff-d);font-size:28px;font-weight:700;color:var(--ink);letter-spacing:-.5px;margin-bottom:14px}
@@ -432,7 +432,8 @@ async function loadCamps(){
     const d=await sbQ("campamentos",{select:"nombre,region,activo,precio_base,relieve,bal,v4x4_required,capacidad_max,pedidos_ytd",filter:"activo=eq.true",order:"pedidos_ytd.desc"});
     camps=d.filter(c=>c.precio_base);
   }catch(e){camps=DEMO;}
-  renderCamps(camps);
+  if(typeof renderCampsConFotos==='function') renderCampsConFotos(camps);
+  else renderCamps(camps);
   populateSel(camps);
 }
 
@@ -468,9 +469,10 @@ function populateSel(list){
 function filterC(t,btn){
   document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
   btn.classList.add('active');
-  if(t==='todos'){renderCamps(camps);return;}
+  const render = typeof renderCampsConFotos==='function' ? renderCampsConFotos : renderCamps;
+  if(t==='todos'){render(camps);return;}
   const f={playa:c=>c.relieve==='Playa'||c.bal?.includes('Playa'),montana:c=>c.relieve==='Montaña',rio:c=>c.bal?.includes('Río')||c.bal?.includes('Cascada'),bosque:c=>c.relieve==='Bosque'||c.relieve==='Selva',norte:c=>c.region==='Norte',sur:c=>c.region==='Sur',este:c=>c.region==='Este'};
-  renderCamps(camps.filter(f[t]||(_=>true)));
+  render(camps.filter(f[t]||(_=>true)));
 }
 
 function openMo(i){
@@ -531,8 +533,246 @@ document.getElementById("fdate").min=new Date().toISOString().split("T")[0];
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});},{threshold:.1});
 document.querySelectorAll('.anim').forEach(el=>obs.observe(el));
 
+const FOTOS_DRIVE = {
+  "Villa Altagracia": ["https://drive.google.com/thumbnail?id=1PG_tE0gFlSlMCjzcp5mbO3FQ1lWXzyxK&sz=w600", "https://drive.google.com/thumbnail?id=1OhO-n_DyIS1ZUKODoyvWH4lCTD9FHvmu&sz=w600", "https://drive.google.com/thumbnail?id=1NC_Y8mPkR4VACr3M1gzfQ0FgCTTOTXOc&sz=w600", "https://drive.google.com/thumbnail?id=1OiGd67m1YYB4gyVu7KElzcXybDbQYjQO&sz=w600", "https://drive.google.com/thumbnail?id=1M2SD3E5XSOh46yj3Ync1XWVYww8hV_pk&sz=w600", "https://drive.google.com/thumbnail?id=1PTb5QnSR4A7Bj0R7USbkJ5qaMg29pKxm&sz=w600", "https://drive.google.com/thumbnail?id=1MZnE5OCvj_iC4-qfOeiP92J8FERGJI96&sz=w600", "https://drive.google.com/thumbnail?id=1NMThyap1f5KtcaM5kiGvlkURhzM9vYR8&sz=w600", "https://drive.google.com/thumbnail?id=1NNiwbNZt017Nd8ODncwrXokCE-dLvmMG&sz=w600", "https://drive.google.com/thumbnail?id=1LFQ8atLBwx4ybvueiQKAxb5mMTRkdYVQ&sz=w600"],
+  "Los Cacaos": ["https://drive.google.com/thumbnail?id=1S0wf11JK-9qV3qUO7ob31AuC-RRcU8H3&sz=w600", "https://drive.google.com/thumbnail?id=1sIS1H_NjRss6OdooF5ntsbIpx4HJEODZ&sz=w600", "https://drive.google.com/thumbnail?id=1HMWQVSqKIijhxxtNhZW5UisfappjfgSE&sz=w600", "https://drive.google.com/thumbnail?id=1RwCVQEMDldSJQnsOOFyPxCtdHlf26cLW&sz=w600", "https://drive.google.com/thumbnail?id=1z4Kd0x-FqeQwnirEepXpfZvUy1-2dSvS&sz=w600", "https://drive.google.com/thumbnail?id=1OIQh3Gtu-JJRd5HQimg4_Q4YJ-txukyl&sz=w600", "https://drive.google.com/thumbnail?id=1wxpHIGVPXtqHWTq_nRlAVCGXeSQkzrkJ&sz=w600", "https://drive.google.com/thumbnail?id=1bwxGaozC-y7XWlHnZrn--LlaETh25unj&sz=w600", "https://drive.google.com/thumbnail?id=1Y8XTfUDA9g4g0MhoJJU4EV1CmIAzrps_&sz=w600", "https://drive.google.com/thumbnail?id=1KFTuX-K3zcsjw3275az5u8mFGOCnQa3q&sz=w600"],
+  "Jarabacoa": ["https://drive.google.com/thumbnail?id=1eDRveSPC6DUNBwEKT8b01CPdWJLAT6oL&sz=w600", "https://drive.google.com/thumbnail?id=1og7wI1ZXLI3bGJZMbNtPPuk0FzDG3Ohj&sz=w600", "https://drive.google.com/thumbnail?id=1G-OIXSfm_57Pl_U1afO6U4tBALMmQ5rG&sz=w600", "https://drive.google.com/thumbnail?id=1Dfls_wmlt8FjiSbNfeV4L7DDysbPfzxN&sz=w600", "https://drive.google.com/thumbnail?id=15O6xuS49ijEBufNzNofRYU2-ZxBwJ9FD&sz=w600", "https://drive.google.com/thumbnail?id=1Eyi1wgSqtyQw69Y06ABaTg96x65xA9tL&sz=w600", "https://drive.google.com/thumbnail?id=1RvxBA8AsMb6zFrmnf_oi1ZxlshKV_7jC&sz=w600", "https://drive.google.com/thumbnail?id=1Wlr8bIGw1pFfcsEoW-cbLo_sCNk8-8hU&sz=w600", "https://drive.google.com/thumbnail?id=1H9_7iPDSiDaVH4hUELmYqOvCYLOC8BRp&sz=w600"],
+  "Playa El Valle, Samana": ["https://drive.google.com/thumbnail?id=1DdpMNTura_YuSygWDaMzxFb4GNogTj0J&sz=w600", "https://drive.google.com/thumbnail?id=1DkPLtl0jO3MaR9t2Uu4AV7Zp5w7R1DsD&sz=w600", "https://drive.google.com/thumbnail?id=1CdbAWfCwc4XMscNrEHTUUbShl2G151eg&sz=w600", "https://drive.google.com/thumbnail?id=1CfiQwED8-MSZ3lEkrye57cbPwRyBPwm-&sz=w600", "https://drive.google.com/thumbnail?id=1CgFWEmxcPhgxwh37nrQ2rCKQn7Jggj-g&sz=w600", "https://drive.google.com/thumbnail?id=1BxX3GSp5N0EnpaXrI6yZ07SAP6jI38Pl&sz=w600", "https://drive.google.com/thumbnail?id=1sHEn2i14yHwlDRpZHb3vx15DfRJBJTsn&sz=w600", "https://drive.google.com/thumbnail?id=1uiAvJJABTbYen4GxJNaan2Ax7gJoZUTu&sz=w600", "https://drive.google.com/thumbnail?id=1W-fOX3QEBzLafBP9W1RC_Wmp3cWLAgdG&sz=w600", "https://drive.google.com/thumbnail?id=1j83F2TFntOGpf2kNq-oAxAl-riu2EKvE&sz=w600"],
+  "Rincon, Samana": ["https://drive.google.com/thumbnail?id=19vn8CZ4IZIC1slzXfR-4HUHXIS2ls7EV&sz=w600", "https://drive.google.com/thumbnail?id=1x7sARwLA3NT1TTNUH_colvL_Z44z9Ikm&sz=w600", "https://drive.google.com/thumbnail?id=1X8hehsXx11dollQpX_dKjLnr5emp-VIe&sz=w600", "https://drive.google.com/thumbnail?id=1gHVewsKgOY1ZCqpTw0PdvbpPDpBWtzm8&sz=w600", "https://drive.google.com/thumbnail?id=1iqHgJSle3RKdj3anS_p84V38Za4ohZgo&sz=w600", "https://drive.google.com/thumbnail?id=1zE3sDlan4KDHuGOBJvvMGoXZ4fE4Unv4&sz=w600", "https://drive.google.com/thumbnail?id=1AuC_dVIBaqirNuyXrr1Yuj3ysfE1eOw9&sz=w600", "https://drive.google.com/thumbnail?id=1roejiFh8hCifTuMrLhx2bcqU-muHrBDb&sz=w600", "https://drive.google.com/thumbnail?id=1GHWMF7vshZ-iLNYqjDHd5qR2N0WbuHa_&sz=w600", "https://drive.google.com/thumbnail?id=1KU0R_rOVicsS5cqMN66K4P0gUIWBEuN1&sz=w600"],
+  "Santiago": ["https://drive.google.com/thumbnail?id=1Za5GxCBvQZlyUAVC-L-oKAOhiWcRzcWV&sz=w600", "https://drive.google.com/thumbnail?id=1nUT0bPCATnqr5zrxZ4gpAvUMxfY1EDlb&sz=w600", "https://drive.google.com/thumbnail?id=1xHKYBoAjE3U1Rr5bPwMMPiihSU3yHaCv&sz=w600", "https://drive.google.com/thumbnail?id=1SEfDPaWFkrM-fqsoCI53-dRNzDDhTCdt&sz=w600", "https://drive.google.com/thumbnail?id=1zXZvXVaDNf_SLa-casJD_9Oyk8W1neWZ&sz=w600", "https://drive.google.com/thumbnail?id=1-g4dew-RcaInMUFl4ux3kw7pZFMZBsgP&sz=w600", "https://drive.google.com/thumbnail?id=1TW45V7CgpE_QW0G5xcthg8vfHWDA03la&sz=w600", "https://drive.google.com/thumbnail?id=1a-dGbTms27Zb34L6rJqTod-eBaMRxNeW&sz=w600", "https://drive.google.com/thumbnail?id=1OJqypPGzQOEYy_r5ukXjk9iXaXjT3jQ3&sz=w600"],
+  "Punta Cana": ["https://drive.google.com/thumbnail?id=18jcvSB284vUmtwNETQQ5zazI_xG1w7Ga&sz=w600", "https://drive.google.com/thumbnail?id=19BuAr0FCH-Oj-Q0T0PgB_BuY8sztPa4q&sz=w600", "https://drive.google.com/thumbnail?id=19KYeQDwlCq8tvyiUjfrvJ4FkfodnqkSQ&sz=w600", "https://drive.google.com/thumbnail?id=18XwG-jweJuqLjSjtAQXneSTmQqf01_49&sz=w600", "https://drive.google.com/thumbnail?id=18cIVqdtUWt4MnfdvbGx37JS5bYNwuGL6&sz=w600", "https://drive.google.com/thumbnail?id=1A0AWi_5Lfb1s_vLFk-Ylp-lKfNICeyU7&sz=w600", "https://drive.google.com/thumbnail?id=1A3p3FikcpPfSlWtqueFQBkoD9XLLTBYh&sz=w600", "https://drive.google.com/thumbnail?id=1934QU1yNzKtA_RsQPk3RsiL20JpmEEI5&sz=w600"],
+  "Taiku": ["https://drive.google.com/thumbnail?id=1kOnbS2jt_0I9sOrGYD9R07bE1lz9qTc8&sz=w600", "https://drive.google.com/thumbnail?id=1K2KFLkpprcvpEcMJOEcAW5DLGJDddugj&sz=w600", "https://drive.google.com/thumbnail?id=1FylBRNSlbeJJOJa4fT5HdPGHjzbra1Bv&sz=w600", "https://drive.google.com/thumbnail?id=1R4fGl7L9jBEsNxjo03mgezAnyCMU4pQp&sz=w600", "https://drive.google.com/thumbnail?id=1rCepCIx9rKnmkOeMh0OqkK7WO98CfkCZ&sz=w600", "https://drive.google.com/thumbnail?id=1E98Hqtrtap5GVNqN4CfsEy3u3kLYlgvi&sz=w600", "https://drive.google.com/thumbnail?id=1XDYMz8pkLWsi8LpCGEmCbdB8bjD6heD1&sz=w600", "https://drive.google.com/thumbnail?id=1nXyK-AK8uVRPFm12g9TvY_4aoU41AAQr&sz=w600", "https://drive.google.com/thumbnail?id=1kyzoI5Fif2TXA895LnvmyGVXayi54vqz&sz=w600", "https://drive.google.com/thumbnail?id=1pIw_5iFBemKMa0rpcKyvu6XPQgGKfwF3&sz=w600"],
+  "Ocoa": ["https://drive.google.com/thumbnail?id=1IxUfjsq3Z52q36KZgV27tjtZXkmbq8bs&sz=w600", "https://drive.google.com/thumbnail?id=1IY5k9qLWMIP6EhUZz1aXjFkEbHMzuc1g&sz=w600", "https://drive.google.com/thumbnail?id=1Ifte-0oh_sLL_N29YrbyJvtZ7ko6svdN&sz=w600", "https://drive.google.com/thumbnail?id=1HySeuqu1l0FHTXeSiJ84tpqYJIUHGeXG&sz=w600", "https://drive.google.com/thumbnail?id=1ITmMgEZsQx7OHUkEKMWFsnd-KtMYbN_w&sz=w600", "https://drive.google.com/thumbnail?id=1HN7IFaCWUTrnI3T8RTDPOeEfiYLu7skr&sz=w600", "https://drive.google.com/thumbnail?id=1I5Au5vcCmkLTiSVwY3wauo4nvFi_dl8E&sz=w600", "https://drive.google.com/thumbnail?id=1I3ayw3TopWmguXP1LLweea0dV43MBsyD&sz=w600", "https://drive.google.com/thumbnail?id=1HWY0_RvkPyMXOE7ALqRCGR27jqbZ_7B6&sz=w600", "https://drive.google.com/thumbnail?id=1H381JF0EJtTz90-emVn_Fno09REEVCEn&sz=w600"],
+  "Monseñor": ["https://drive.google.com/thumbnail?id=1J2vR6T90XuH2aUvEw6FM5KJR4i6icvAC&sz=w600", "https://drive.google.com/thumbnail?id=1IvuXMjnmrM-CQTD7JNpe0iHi5Qjm23vP&sz=w600", "https://drive.google.com/thumbnail?id=1IXboCf_AATi1M9J5FSQ7ttqluHdeCubN&sz=w600", "https://drive.google.com/thumbnail?id=1Iw4OABfO7-k1Zoiq43MW0fMVhsJsH1wk&sz=w600", "https://drive.google.com/thumbnail?id=1InpKickyL5wfubIRAdgw5WdXf_ckkOKT&sz=w600", "https://drive.google.com/thumbnail?id=1IO2uAWDWG4GDuyv5q_qKsGz9oiI3CyY0&sz=w600", "https://drive.google.com/thumbnail?id=1Hx3g7iyjDS75WMNhMrqPVdvrvcPN7FI8&sz=w600", "https://drive.google.com/thumbnail?id=1H1TOlFFlGVX7azkeHIhXtSzQ15rJeqx4&sz=w600", "https://drive.google.com/thumbnail?id=1WyegAFTXEq9N9MCPc4eAeLrKxzM1xd7q&sz=w600", "https://drive.google.com/thumbnail?id=14XdCysMH6Jz4NU9DAR2zvjRfrT2PUdws&sz=w600"],
+  "Hato Mayor": ["https://drive.google.com/thumbnail?id=1QAUqHcANOH1lsYThxVhMXA0vAxExN8ue&sz=w600", "https://drive.google.com/thumbnail?id=19Ht36oz4k4cs-H6id6N7uwFHmpzlVvx2&sz=w600", "https://drive.google.com/thumbnail?id=1fI_9iTdojdLkvnTYEfKRy0e7RLAxo3hw&sz=w600", "https://drive.google.com/thumbnail?id=1JAUJNG_w83DmosKgG9yNnPzHwnjMCY8r&sz=w600", "https://drive.google.com/thumbnail?id=1iE3fZXWLQZbgV9eGOLjSbUd8mGHBHwqK&sz=w600", "https://drive.google.com/thumbnail?id=1H7ZjaysbH3Nv_Rs1Pvwq0I077kvjzX21&sz=w600", "https://drive.google.com/thumbnail?id=1UG6HbfUV82T9hIOctuUo_0akgzd953rp&sz=w600", "https://drive.google.com/thumbnail?id=1bAxtoPFZrZRgwoWhX17LaQVDohk3tVeK&sz=w600", "https://drive.google.com/thumbnail?id=1FSARpHHxJ8XfgeZM11dwR6RQIdRjvR6Z&sz=w600"],
+  "Constanza": ["https://drive.google.com/thumbnail?id=1gpqrdlAtsPtf8ot1KHXmHqK-RVaWPpGw&sz=w600", "https://drive.google.com/thumbnail?id=1rfIXGk1MmiETYpXYDysU2yBRvG3Qhtkz&sz=w600", "https://drive.google.com/thumbnail?id=1A_UqGoDYv_DA9boFM6X-PCp9XH9hoOAc&sz=w600", "https://drive.google.com/thumbnail?id=1jkV2RXhOfrl4Z9DEwgmbHaAtNet3gJQQ&sz=w600", "https://drive.google.com/thumbnail?id=1vjG8O1EHT8AYDwiMg5r2QQComa1ZsFZE&sz=w600", "https://drive.google.com/thumbnail?id=1-HHojoK75TbEnC-PYXaETozoV8-nzmWm&sz=w600", "https://drive.google.com/thumbnail?id=1DjeA3taHPcP73wvorVGO2xv8qkxCpe7w&sz=w600", "https://drive.google.com/thumbnail?id=1-53cMmjDE2IoSqjJWo29qew1qAZ-dnfS&sz=w600", "https://drive.google.com/thumbnail?id=1O38LAGTFhEvbI8LWLLsLW4Nj67smTHmR&sz=w600", "https://drive.google.com/thumbnail?id=1dZeWF4wApuJDnrOT5yVaNIdv5VGx4kG7&sz=w600"],
+  "Bonao": ["https://drive.google.com/thumbnail?id=1Al3PGTc0b9_ZkTH11ONINQVXMrJRMrmw&sz=w600", "https://drive.google.com/thumbnail?id=1Dslw0sP5I_FEWX8zfxHVbdZ5znTKEokK&sz=w600", "https://drive.google.com/thumbnail?id=1waBVfDx94hJin6ZGNnuTgvaEnURf5VET&sz=w600", "https://drive.google.com/thumbnail?id=1zw_c80Tvmf8kYhaQCe1Lb7gBAVKgjkt3&sz=w600", "https://drive.google.com/thumbnail?id=1LlSATsxa7_2Bcy8YsSGKaIabD2VtXxdI&sz=w600", "https://drive.google.com/thumbnail?id=1rxFkZ8nHsfFWqTq-q_KCsJn1byUjHm1L&sz=w600", "https://drive.google.com/thumbnail?id=1yHuhAXJZ-7banndVmK596DOLXd1751Gt&sz=w600", "https://drive.google.com/thumbnail?id=1GXTdBV4NYxOqKW4QMNzAUJxhE6IDGrMJ&sz=w600", "https://drive.google.com/thumbnail?id=1MtUEFrXH-2rxA5Hy3Disp3dlA2oQZWW8&sz=w600", "https://drive.google.com/thumbnail?id=193Qzm8e9jGsysrGT-gwP71x9occu7M3S&sz=w600"],
+  "Comatillo": ["https://drive.google.com/thumbnail?id=1JoEVvC53pbp2X38sFxm0wWHwjB36lDG0&sz=w600", "https://drive.google.com/thumbnail?id=1S4HlHXltvI5z442kjktgrv6X34ArgHE-&sz=w600", "https://drive.google.com/thumbnail?id=17KZCfH7sJ2-gPqxv_uIVaSw9G3yIuZQb&sz=w600", "https://drive.google.com/thumbnail?id=11NNh_c_LWm12CPa6HdcwaTHfk_KO-flV&sz=w600", "https://drive.google.com/thumbnail?id=1pWfTpg29uPfjErz4betomcwC3irgmBKj&sz=w600", "https://drive.google.com/thumbnail?id=1IzSaV6S4o_mtEjhNXkNxMc6jeOp8wXvC&sz=w600", "https://drive.google.com/thumbnail?id=1z_zVNczo8c71AXo7pjdgaFf0qKZptMEo&sz=w600", "https://drive.google.com/thumbnail?id=1KbVc9rA5708i08_X5u5XfXTSVEtLkXCo&sz=w600", "https://drive.google.com/thumbnail?id=1hBIoP_DzjHQXyUFgQQKsSW2YWg-WhxLN&sz=w600", "https://drive.google.com/thumbnail?id=1IFCwnvsH0QqCT6LFiC6yzfpQGoY179E2&sz=w600"],
+  "San Cristobal": ["https://drive.google.com/thumbnail?id=1MGy8zMrN-fQ_1LKdOsmhZa6kiuR3G2zO&sz=w600", "https://drive.google.com/thumbnail?id=1lDHeGq_Dcxq3peE60TL7Mpm_iAo-Kvdj&sz=w600", "https://drive.google.com/thumbnail?id=1lp12fuso-vPUdKp1sSqmdouO8M6H3yp1&sz=w600", "https://drive.google.com/thumbnail?id=13TujAqegkFbwQ-1dKU7P649zzTuysPda&sz=w600", "https://drive.google.com/thumbnail?id=1iPndRHgqK_9lciT8GvGULUCrncYGdqDm&sz=w600", "https://drive.google.com/thumbnail?id=1HY70S_CJyqyf4VdBcxdQAl0cVKQE0yXi&sz=w600", "https://drive.google.com/thumbnail?id=1z2MnxvsgTkj3HGf-GZtpnkJUIE5spAG2&sz=w600", "https://drive.google.com/thumbnail?id=1n_V_M_ETpyu7vAWobyK0YGxoUKInp9lA&sz=w600", "https://drive.google.com/thumbnail?id=1GEf3DNvCer4BWlw7u4TPmWQPXukB0XH-&sz=w600", "https://drive.google.com/thumbnail?id=1WuptQJCqN0RKDnkzF0tfg-ZcsGJJYJgE&sz=w600"],
+  "Azua": ["https://drive.google.com/thumbnail?id=1RVZHceQ2E189mCJ9u6FLRdD34JrMzL3p&sz=w600", "https://drive.google.com/thumbnail?id=1BWTWGXVi7Oi80TfnC_F2NY8RFhUFw9DC&sz=w600", "https://drive.google.com/thumbnail?id=17ra3WVZdMhhOtMGK6eannW6ayu8oOT4T&sz=w600", "https://drive.google.com/thumbnail?id=1UkyeShm4f_L0-fxlrkO6WgPg2CANltSq&sz=w600", "https://drive.google.com/thumbnail?id=1Q06mgPqM4ix8RhmRaXTgU56tU4wmQjkx&sz=w600", "https://drive.google.com/thumbnail?id=1rT8Nw-7llIzAcYdQtxHz7ocP6RsIb34g&sz=w600", "https://drive.google.com/thumbnail?id=1uBNMZpIGHkvpWoxhuYZa6mIBI7M1Uv1R&sz=w600", "https://drive.google.com/thumbnail?id=1bzN1DuzN1O9KEODtle3MYV1qePnMZ5VV&sz=w600", "https://drive.google.com/thumbnail?id=1enSR6LGM44Uab9mXgJ9yaoLU9mjYOS3X&sz=w600", "https://drive.google.com/thumbnail?id=1Iyu9fxMksxuP79mF_X98oZmf8BocJda-&sz=w600"],
+  "Cabarete": ["https://drive.google.com/thumbnail?id=1xxLghPZTMTGugNINYlDkniPwIfVzPGLY&sz=w600", "https://drive.google.com/thumbnail?id=14RoIrJW1NnODl27kpHEpD_m0eK2hJEGZ&sz=w600", "https://drive.google.com/thumbnail?id=1CJ9h3CdITQ6xoHIBnoAot2WTl0xswzFB&sz=w600", "https://drive.google.com/thumbnail?id=1LIA__e-OaCFNyzftTC94UpohbA1Q-_ZR&sz=w600", "https://drive.google.com/thumbnail?id=1YE9-pHEwSFKAAu9Q2b4kETXGsVsEXxsk&sz=w600", "https://drive.google.com/thumbnail?id=1EF1ZMvoOZLgUFP1aD-SgSO7pWCbpzgt8&sz=w600", "https://drive.google.com/thumbnail?id=1LcTDTUGrGE2yhcRfiGR68IrWVt9eCeay&sz=w600", "https://drive.google.com/thumbnail?id=1g9CqgIPyIL7GrhxLEIJcuZlvo_M_CJPL&sz=w600", "https://drive.google.com/thumbnail?id=1OPAF7qmeyCjfCzNUwsfXErtqnSYWb98j&sz=w600", "https://drive.google.com/thumbnail?id=18egsttNliFjlLHXhEqTDxb4P5IEFyiuL&sz=w600"],
+  "Montellano": ["https://drive.google.com/thumbnail?id=1CEwvYmRviLrbQXE7ON_ggFCcGb_Hgxhv&sz=w600", "https://drive.google.com/thumbnail?id=1FmJJAnqt0d-qQPYmENhLj9gtTBoRWNSy&sz=w600", "https://drive.google.com/thumbnail?id=1TWKFujFtqDCc2u7fVeR6q3DBVoRM_qeB&sz=w600", "https://drive.google.com/thumbnail?id=1SkD8_u2lo4f6FA3hM8EinFFh9OlZPbh_&sz=w600", "https://drive.google.com/thumbnail?id=1KBotu4bgBaKzhILC92HSgWnrQ0fOinKq&sz=w600", "https://drive.google.com/thumbnail?id=1iI0mnKhYj5nAPssdmb5RwzaoiZUbl2BB&sz=w600", "https://drive.google.com/thumbnail?id=1Zn0lD6clamz5Heodtuc9ak_D7isv51aN&sz=w600", "https://drive.google.com/thumbnail?id=1hzkOEV7NAD3rgo9gG1awiTXKTyYuvRx0&sz=w600", "https://drive.google.com/thumbnail?id=1HkwUeaDED1yPxWtAglFdyeo5y9E7Vnz4&sz=w600", "https://drive.google.com/thumbnail?id=1l8IxAJXVXUxyKjvqxeqp8iVzjuv8gxBA&sz=w600"],
+  "Jamao Al Norte": ["https://drive.google.com/thumbnail?id=11fvk21AgG2CZxM_5d27K8fDVrjz1Dn0H&sz=w600", "https://drive.google.com/thumbnail?id=1_Aui2vmPY5xDh5IFHOIQoqt1AYFgDOLH&sz=w600", "https://drive.google.com/thumbnail?id=1PLzHFnlLS1mbfL-qkonDIJ2wcam_GdsS&sz=w600", "https://drive.google.com/thumbnail?id=1e1GX1fGn1TeN9CSZN3SdOru5o6tm2kut&sz=w600", "https://drive.google.com/thumbnail?id=1-Z5JQzu4CZl1xtA2PFReFV7DH_uQT9ah&sz=w600", "https://drive.google.com/thumbnail?id=14i2xV0pmuTOGCynBd82LqlnPClgZ1ay3&sz=w600", "https://drive.google.com/thumbnail?id=1XUg0Utje_URUfh4z8t6eZfEWnhQcbPVX&sz=w600", "https://drive.google.com/thumbnail?id=1OpRZs3roLgeRWHJWGhGzo2N8St24ezHu&sz=w600", "https://drive.google.com/thumbnail?id=1bUbUdDxwsF5U58Ig5YPKNdLp6KjrniI_&sz=w600", "https://drive.google.com/thumbnail?id=1szKktBF0Zf8-s6L8v1d4tynmHLFYVTgv&sz=w600"],
+  "Santo Domingo": ["https://drive.google.com/thumbnail?id=14-qsleT89FfM_DNYKIDJ7M33BDrzQP50&sz=w600", "https://drive.google.com/thumbnail?id=1VoOgB1SNdCuRgSEu3knPH2e18rIh0-ci&sz=w600", "https://drive.google.com/thumbnail?id=1xRqk8vCyriBbNEK06DIvdUzTBT7MywFj&sz=w600", "https://drive.google.com/thumbnail?id=1NHGXHtDevFde5qFkk37F5Wied0XQTvma&sz=w600", "https://drive.google.com/thumbnail?id=1TblRfT9c1UCymMM7l-NC2LoLLCzZvyIm&sz=w600", "https://drive.google.com/thumbnail?id=1FHShs1X6mwSOjoKB2AKaNW35oSlx2Uic&sz=w600", "https://drive.google.com/thumbnail?id=1ruyS28lJD0txU3zHY7HfBnmIpGEsgwn2&sz=w600"],
+  "Lavacama": ["https://drive.google.com/thumbnail?id=1UwF8nn2u-x4T8hXlVT4_fLRIbEMEdsGe&sz=w600", "https://drive.google.com/thumbnail?id=1bRJ2Z4nhjg78V50nyzdINquL3oseJ7af&sz=w600", "https://drive.google.com/thumbnail?id=1ObrgEx3jNruxg97ghf3rkcQXPeqoJ-ik&sz=w600", "https://drive.google.com/thumbnail?id=1-wDgRyxOVwJ17ks-UTsC3bhJ7zN1qP4f&sz=w600", "https://drive.google.com/thumbnail?id=1fdyyo-zTDgZnz7FyAukgNOozMb-zi91-&sz=w600", "https://drive.google.com/thumbnail?id=1ojkMSLdgAckHipAAjpSKTzDhKz73j52y&sz=w600", "https://drive.google.com/thumbnail?id=1MxyTDFC4Uyir4u9N11oZyF_b_RyoWx6x&sz=w600", "https://drive.google.com/thumbnail?id=1sG_02DBnbQgqJBD_63f1QdmoO6HACkGI&sz=w600"],
+  "Pinar del Valle": ["https://drive.google.com/thumbnail?id=1-VlleYV0UWvwjM-N6ZB46RBxtFPuxolQ&sz=w600", "https://drive.google.com/thumbnail?id=1fKk9Ndq_39ThVUAuGlRNlAhGAo2Bf8MF&sz=w600", "https://drive.google.com/thumbnail?id=1zb8sKfuyrN5HgK-L3OJsBx0AoKDosoxJ&sz=w600", "https://drive.google.com/thumbnail?id=1dtGtcpHYeP3VXMK6Kgm461yOBfIn4dm-&sz=w600", "https://drive.google.com/thumbnail?id=1PxnLPTMUW0VHrGTlN3VG2-Od0uNZs3r0&sz=w600", "https://drive.google.com/thumbnail?id=1O2sTOFCrlyLRlBpdA48W5xs0Jli7cqvh&sz=w600", "https://drive.google.com/thumbnail?id=1bDg1iCwhyqnyUcDi6JD_mA1mpHCtughY&sz=w600", "https://drive.google.com/thumbnail?id=1rXeSEw95pHcBzTsbLSltHXb8xiY9xmmG&sz=w600", "https://drive.google.com/thumbnail?id=1Hj46k4v01YEyMdjO5Wm6C3fvuJ5WhT8w&sz=w600"],
+  "VIlla Pajon": ["https://drive.google.com/thumbnail?id=1792iwa55z4RomRVjEYDBAVcQUhITz-w5&sz=w600", "https://drive.google.com/thumbnail?id=17BLo0QcZ_QJJHLsvUkyHS4RI3Y8X-qOk&sz=w600", "https://drive.google.com/thumbnail?id=17A7FPKkWTtHbRtYNkCqZls0A_x9alqNS&sz=w600", "https://drive.google.com/thumbnail?id=17EFiXUJXFWQUO1W7lOYEr7A7CJiYsf85&sz=w600", "https://drive.google.com/thumbnail?id=17HoSd1jmIGQU-4OxpquxmP8EOgbszna9&sz=w600", "https://drive.google.com/thumbnail?id=1Q3IAKbSYvF8aRZKXC5Y7jYvAMH6HItO4&sz=w600", "https://drive.google.com/thumbnail?id=1g5PAgPocnjlP8u2kslah31LT0C5BsIDZ&sz=w600", "https://drive.google.com/thumbnail?id=1EvjgrP6GYuHv0IJVcZv8hnvwwx3nTsfG&sz=w600", "https://drive.google.com/thumbnail?id=1yG457gDlGUtTedpyhurgFamNw1Q2f5M2&sz=w600"],
+  "Las Terrenas": ["https://drive.google.com/thumbnail?id=1GLs4-52iVaqZQss-NqPL6S3RM_uCJLwQ&sz=w600", "https://drive.google.com/thumbnail?id=1mSLzo7LD-5RpIVRdUKAfRNo98Wc3CmE1&sz=w600", "https://drive.google.com/thumbnail?id=1bY2i-LrLiF-b9G8APTbKzv8HMEKt0HRv&sz=w600", "https://drive.google.com/thumbnail?id=1fo75VoSphqe3JX2ykwS4UguBcoRBjI-f&sz=w600", "https://drive.google.com/thumbnail?id=1RxOzOiwt1BOB40QDxP9pqmt2hBt_O557&sz=w600", "https://drive.google.com/thumbnail?id=1e7FUr7VI0odZ3enRpEJhmAFiP0Z-8qb2&sz=w600", "https://drive.google.com/thumbnail?id=1_hKGAevoQGUXDxSDXjyAUuWgxlNv86c5&sz=w600", "https://drive.google.com/thumbnail?id=1ZwBcCgj4LnYC92weRw3kyI5__O8fg1hp&sz=w600", "https://drive.google.com/thumbnail?id=1vJB-VgdX4JIeE7nj2p3Z-7KjQtcZ79mV&sz=w600"],
+  "Bayaguana": ["https://drive.google.com/thumbnail?id=1NxgfgplQaklzO1f8QoqbC22lMbi80R2c&sz=w600", "https://drive.google.com/thumbnail?id=1mVNMQ2Eh_jpZDRHhWmj8TV8YvFjbK_Ta&sz=w600", "https://drive.google.com/thumbnail?id=1lOkV_joiEVWmMHgJnkGOHl0uA0A3q-Zp&sz=w600", "https://drive.google.com/thumbnail?id=1viOju-Azal73i3Mw-u0gI-VjHI1h9l8G&sz=w600", "https://drive.google.com/thumbnail?id=12StZwLPNENeWq2Tu5cchNCSMarTB3S2M&sz=w600", "https://drive.google.com/thumbnail?id=1x-jMjTgvFpE29bDpdmJF7g0gbOpVwRWF&sz=w600", "https://drive.google.com/thumbnail?id=1qkSdsxE3r0xzYXL1-XpBdZuIVz7TsyfR&sz=w600", "https://drive.google.com/thumbnail?id=1zC-gM5-wPlH7t25w8815m4kOWn3qfuGq&sz=w600", "https://drive.google.com/thumbnail?id=1A5V-3x42-0TYpLagexJ5h4colrX1pyGa&sz=w600", "https://drive.google.com/thumbnail?id=1gOGR-lgSNaAz_V8nEPghmKaiM7x35_1c&sz=w600"],
+};
+
+// ── CARRUSEL POR CAMPAMENTO ──────────────────────────────
+const carruselState = {};
+
+function getThumb(campNombre) {
+  const fotos = FOTOS_DRIVE[campNombre] || FOTOS_DRIVE[campNombre.trim()];
+  if (fotos && fotos.length > 0) return fotos[0];
+  return null;
+}
+
+function getFotos(campNombre) {
+  return FOTOS_DRIVE[campNombre] || FOTOS_DRIVE[campNombre.trim()] || [];
+}
+
+// Override renderCamps para usar fotos reales
+function renderCampsConFotos(list) {
+  const g = document.getElementById("cgrid");
+  if (!list.length) {
+    g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:#a8a8a4">Sin resultados para ese filtro.</div>';
+    return;
+  }
+  g.innerHTML = list.map((c, i) => {
+    const fotos = getFotos(c.nombre);
+    const tieneFotos = fotos.length > 0;
+    const fotoPrincipal = tieneFotos ? fotos[0] : null;
+    const tags = [c.bal && c.bal !== "No" ? c.bal : null, c.relieve, c.v4x4_required ? "4x4" : null].filter(Boolean);
+    const pop = c.pedidos_ytd > 5;
+    const imgContent = tieneFotos
+      ? `<img src="${fotoPrincipal}" alt="${c.nombre}" class="ci" loading="lazy" id="img-${i}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+      + `<div class="ci-ph" style="display:none">🏕</div>`
+      : `<div class="ci-ph">🏕</div>`;
+
+    // Mini carrusel dots si hay múltiples fotos
+    const dots = fotos.length > 1
+      ? `<div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:3">
+          ${fotos.slice(0, Math.min(fotos.length, 8)).map((_, di) => 
+            `<div class="dot-${i}" style="width:${di===0?'18px':'7px'};height:7px;border-radius:4px;background:${di===0?'white':'rgba(255,255,255,.5)'};transition:all .3s;cursor:pointer" onclick="event.stopPropagation();cambiarFoto(${i},${di})"></div>`
+          ).join('')}
+        </div>`
+      : '';
+
+    // Botones prev/next si hay múltiples fotos
+    const nav = fotos.length > 1
+      ? `<button onclick="event.stopPropagation();prevFoto(${i})" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;z-index:3;opacity:0;transition:opacity .2s" class="nav-btn-${i}">‹</button>
+         <button onclick="event.stopPropagation();nextFoto(${i})" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;z-index:3;opacity:0;transition:opacity .2s" class="nav-btn-${i}">›</button>`
+      : '';
+
+    return `<div class="cc anim" style="animation-delay:${i*.04}s" onclick="openMoConFotos(${i})"
+      onmouseenter="this.querySelectorAll('.nav-btn-${i}').forEach(b=>b.style.opacity='1')"
+      onmouseleave="this.querySelectorAll('.nav-btn-${i}').forEach(b=>b.style.opacity='0')">
+      <div style="position:relative;overflow:hidden">
+        ${imgContent}
+        ${pop ? '<div class="cb-badge">⭐ Popular</div>' : ''}
+        ${fotos.length > 0 ? `<div style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,.5);color:white;font-size:10px;padding:3px 8px;border-radius:20px;z-index:3">${fotos.length} fotos</div>` : ''}
+        ${dots}
+        ${nav}
+      </div>
+      <div class="cb">
+        <div class="cr">${c.region}</div>
+        <div class="cn2">${c.nombre}</div>
+        <div class="ctags">${tags.map(t=>`<span class="ctag ${t===c.bal?'g':''}">${t}</span>`).join('')}</div>
+        <div class="cfooter">
+          <div><div class="cpd">Desde</div><span class="cpv">RD$${Number(c.precio_base).toLocaleString('es-DO')}</span><span class="cpu"> / persona</span></div>
+          <button class="cbtn">Ver galería</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Init carrusel state
+  list.forEach((c, i) => {
+    carruselState[i] = { idx: 0, fotos: getFotos(c.nombre) };
+  });
+
+  setTimeout(() => {
+    document.querySelectorAll('.anim').forEach(el => {
+      const ob = new IntersectionObserver(es => {
+        es.forEach(e => { if(e.isIntersecting) { e.target.classList.add('vis'); ob.unobserve(e.target); } });
+      }, { threshold: .1 });
+      ob.observe(el);
+    });
+  }, 50);
+}
+
+function cambiarFoto(cardIdx, fotoIdx) {
+  const state = carruselState[cardIdx];
+  if (!state) return;
+  state.idx = fotoIdx;
+  const img = document.getElementById(`img-${cardIdx}`);
+  if (img) { img.src = state.fotos[fotoIdx]; }
+  // Update dots
+  document.querySelectorAll(`.dot-${cardIdx}`).forEach((dot, di) => {
+    dot.style.width = di === fotoIdx ? '18px' : '7px';
+    dot.style.background = di === fotoIdx ? 'white' : 'rgba(255,255,255,.5)';
+  });
+}
+
+function nextFoto(cardIdx) {
+  const state = carruselState[cardIdx];
+  if (!state || state.fotos.length < 2) return;
+  cambiarFoto(cardIdx, (state.idx + 1) % state.fotos.length);
+}
+
+function prevFoto(cardIdx) {
+  const state = carruselState[cardIdx];
+  if (!state || state.fotos.length < 2) return;
+  cambiarFoto(cardIdx, (state.idx - 1 + state.fotos.length) % state.fotos.length);
+}
+
+// ── LIGHTBOX COMPLETO ────────────────────────────────────
+let lbCamp = null, lbIdx = 0;
+
+function openMoConFotos(i) {
+  const c = camps[i];
+  if (!c) return;
+  const fotos = getFotos(c.nombre);
+  lbCamp = { c, fotos };
+  lbIdx = carruselState[i]?.idx || 0;
+  renderLightbox();
+  document.getElementById("mo").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function renderLightbox() {
+  if (!lbCamp) return;
+  const { c, fotos } = lbCamp;
+  const tags = [c.bal && c.bal !== "No" ? c.bal : null, c.relieve, c.v4x4_required ? "Requiere 4x4" : null].filter(Boolean);
+  const fotoActual = fotos[lbIdx] || null;
+
+  document.getElementById("mi").innerHTML = `
+    <!-- Galería principal -->
+    <div style="position:relative;background:#111;border-radius:24px 24px 0 0;overflow:hidden">
+      ${fotoActual
+        ? `<img src="${fotoActual}" alt="${c.nombre}" id="lb-img-main"
+             style="width:100%;height:320px;object-fit:cover;display:block"
+             onerror="this.src='';this.style.background='#222'">`
+        : `<div style="width:100%;height:280px;background:linear-gradient(135deg,#0d5c3a,#1a7a50);display:flex;align-items:center;justify-content:center;font-size:64px">🏕</div>`
+      }
+      <!-- Nav arrows en lightbox -->
+      ${fotos.length > 1 ? `
+        <button onclick="prevLb()" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;border-radius:50%;width:38px;height:38px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center">‹</button>
+        <button onclick="nextLb()" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;border-radius:50%;width:38px;height:38px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center">›</button>
+        <div style="position:absolute;bottom:12px;right:16px;background:rgba(0,0,0,.6);color:white;font-size:12px;padding:4px 10px;border-radius:20px">${lbIdx+1}/${fotos.length}</div>
+      ` : ''}
+    </div>
+
+    <!-- Miniaturas -->
+    ${fotos.length > 1 ? `
+      <div style="padding:12px 16px;background:#1a1a1a;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch" id="lb-thumbs">
+        ${fotos.map((f, ti) => `
+          <img src="${f}" alt="" onclick="goLb(${ti})"
+            style="width:60px;height:60px;object-fit:cover;border-radius:6px;cursor:pointer;flex-shrink:0;border:2px solid ${ti===lbIdx?'#01a1aa':'transparent'};opacity:${ti===lbIdx?'1':'.6'};transition:all .2s"
+            id="lb-thumb-${ti}" onerror="this.style.display='none'">
+        `).join('')}
+      </div>
+    ` : ''}
+
+    <!-- Info campamento -->
+    <div style="padding:20px 24px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green);margin-bottom:6px">${c.region}</div>
+      <div style="font-family:var(--ff-d);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:12px;letter-spacing:-.3px">${c.nombre}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px">
+        ${tags.map(t=>`<span style="padding:5px 12px;border-radius:100px;background:var(--ink-6);color:var(--ink-3);font-size:12px;font-weight:500">${t}</span>`).join('')}
+      </div>
+      <div style="background:var(--green-xl);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div>
+          <div style="font-size:11px;color:var(--green);font-weight:600;margin-bottom:2px">Desde</div>
+          <div style="font-family:var(--ff-d);font-size:26px;font-weight:700;color:var(--green)">RD$${Number(c.precio_base).toLocaleString('es-DO')}</div>
+          <div style="font-size:11px;color:var(--green)">por persona / noche</div>
+        </div>
+        <div style="font-size:13px;color:var(--green);text-align:right">
+          ${c.pedidos_ytd > 5 ? '⭐ ' + c.pedidos_ytd + ' reservas este año' : '✓ Disponible'}
+        </div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="mcm" onclick="document.getElementById('csel').value='${c.nombre}';closeMo();document.getElementById('reservar').scrollIntoView({behavior:'smooth'})">
+          Reservar este campamento
+        </button>
+        <a href="https://wa.me/18299370674?text=${encodeURIComponent('Hola! Me interesa el campamento de ' + c.nombre + '. ¿Pueden darme información y precios?')}" target="_blank" class="mcw">💬 WA</a>
+      </div>
+    </div>`;
+
+  // Scroll thumb al activo
+  setTimeout(() => {
+    const th = document.getElementById(`lb-thumb-${lbIdx}`);
+    th?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }, 50);
+}
+
+function goLb(idx) {
+  lbIdx = idx;
+  if (!lbCamp) return;
+  const img = document.getElementById('lb-img-main');
+  if (img) img.src = lbCamp.fotos[idx];
+  // Update counter
+  renderLightbox();
+}
+function nextLb() { if (!lbCamp) return; lbIdx = (lbIdx + 1) % lbCamp.fotos.length; renderLightbox(); }
+function prevLb() { if (!lbCamp) return; lbIdx = (lbIdx - 1 + lbCamp.fotos.length) % lbCamp.fotos.length; renderLightbox(); }
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('mo').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') nextLb();
+  if (e.key === 'ArrowLeft') prevLb();
+  if (e.key === 'Escape') closeMo();
+});
+
+// loadCamps y filterC ya usan renderCampsConFotos directamente
+
 loadCamps();
 loadEquip();
+
 </script>
 </body>
 </html>
