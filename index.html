@@ -425,13 +425,48 @@ async function sbI(t,d){
 
 let camps=[];
 const IMGS={Playa:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80",Montaña:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80",Bosque:"https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80",Selva:"https://images.unsplash.com/photo-1542401886-65d6c61db217?w=600&q=80",Llano:"https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80"};
-const DEMO=[{nombre:"Villa Altagracia",region:"Norte",precio_base:750,relieve:"Bosque",bal:"Río, Cascada",v4x4_required:false,pedidos_ytd:38},{nombre:"Los Cacaos",region:"Sur",precio_base:3500,relieve:"Montaña",bal:"Río",v4x4_required:false,pedidos_ytd:7},{nombre:"Jarabacoa",region:"Norte",precio_base:1500,relieve:"Montaña",bal:"Río, Cascada",v4x4_required:false,pedidos_ytd:8},{nombre:"El Valle, Samaná",region:"Este",precio_base:700,relieve:"Playa",bal:"Playa",v4x4_required:false,pedidos_ytd:12},{nombre:"Santiago",region:"Norte",precio_base:900,relieve:"Bosque",bal:"Presa",v4x4_required:false,pedidos_ytd:17},{nombre:"Punta Cana",region:"Este",precio_base:1700,relieve:"Playa",bal:"Playa",v4x4_required:false,pedidos_ytd:4},{nombre:"Samaná / Rincón",region:"Este",precio_base:700,relieve:"Llano",bal:"Piscina",v4x4_required:false,pedidos_ytd:5},{nombre:"Taiku",region:"Norte",precio_base:600,relieve:"Bosque",bal:"Río",v4x4_required:true,pedidos_ytd:10},{nombre:"Monseñor",region:"Norte",precio_base:1000,relieve:"Bosque",bal:"Presa",v4x4_required:false,pedidos_ytd:4},{nombre:"Ocoa",region:"Norte",precio_base:800,relieve:"Montaña",bal:"Río",v4x4_required:false,pedidos_ytd:3},{nombre:"Hato Mayor",region:"Este",precio_base:1100,relieve:"Selva",bal:"Río, Cascada",v4x4_required:false,pedidos_ytd:3},{nombre:"Constanza",region:"Norte",precio_base:1500,relieve:"Montaña",bal:"No",v4x4_required:false,pedidos_ytd:1}];
+const DEMO=[
+  {nombre:"Villa Altagracia",region:"Norte",precio_base:750,relieve:"Bosque",bal:"Río, Cascada",v4x4_required:false,pedidos_ytd:38},
+  {nombre:"Los Cacaos",region:"Sur",precio_base:3500,relieve:"Montaña",bal:"Río",v4x4_required:false,pedidos_ytd:7},
+  {nombre:"Jarabacoa",region:"Norte",precio_base:1500,relieve:"Montaña",bal:"Río, Cascada",v4x4_required:false,pedidos_ytd:8},
+  {nombre:"Playa El Valle, Samana",region:"Este",precio_base:700,relieve:"Playa",bal:"Playa",v4x4_required:false,pedidos_ytd:12},
+  {nombre:"Rincon, Samana",region:"Este",precio_base:700,relieve:"Llano",bal:"Piscina",v4x4_required:false,pedidos_ytd:5},
+  {nombre:"Santiago",region:"Norte",precio_base:900,relieve:"Bosque",bal:"Presa",v4x4_required:false,pedidos_ytd:17},
+  {nombre:"Punta Cana",region:"Este",precio_base:1700,relieve:"Playa",bal:"Playa",v4x4_required:false,pedidos_ytd:4},
+  {nombre:"Taiku",region:"Norte",precio_base:600,relieve:"Bosque",bal:"Río",v4x4_required:true,pedidos_ytd:10},
+  {nombre:"Ocoa",region:"Norte",precio_base:800,relieve:"Montaña",bal:"Río",v4x4_required:false,pedidos_ytd:3},
+  {nombre:"Monseñor",region:"Norte",precio_base:1000,relieve:"Bosque",bal:"Presa",v4x4_required:false,pedidos_ytd:4},
+  {nombre:"Hato Mayor",region:"Este",precio_base:1100,relieve:"Selva",bal:"Río, Cascada",v4x4_required:false,pedidos_ytd:3},
+  {nombre:"Constanza",region:"Norte",precio_base:1500,relieve:"Montaña",bal:"No",v4x4_required:false,pedidos_ytd:1},
+  {nombre:"Bonao",region:"Norte",precio_base:700,relieve:"Montaña",bal:"Río",v4x4_required:false,pedidos_ytd:3},
+  {nombre:"Comatillo",region:"Este",precio_base:2200,relieve:"Selva",bal:"Río",v4x4_required:false,pedidos_ytd:2},
+  {nombre:"San Cristobal",region:"Sur",precio_base:700,relieve:"Llano",bal:"Piscina",v4x4_required:false,pedidos_ytd:3},
+  {nombre:"Azua",region:"Sur",precio_base:1600,relieve:"Llano",bal:"Piscina",v4x4_required:true,pedidos_ytd:1},
+  {nombre:"Cabarete",region:"Norte",precio_base:1200,relieve:"Playa",bal:"Playa",v4x4_required:false,pedidos_ytd:1},
+  {nombre:"Montellano",region:"Norte",precio_base:900,relieve:"Bosque",bal:"Río",v4x4_required:false,pedidos_ytd:1},
+  {nombre:"Jamao Al Norte",region:"Norte",precio_base:4800,relieve:"Montaña",bal:"Río",v4x4_required:false,pedidos_ytd:0},
+  {nombre:"Santo Domingo",region:"Este",precio_base:2560,relieve:"Llano",bal:"Cenote",v4x4_required:false,pedidos_ytd:2},
+  {nombre:"Lavacama",region:"Este",precio_base:1700,relieve:"Playa",bal:"Playa",v4x4_required:false,pedidos_ytd:1},
+  {nombre:"Pinar del Valle",region:"Norte",precio_base:900,relieve:"Montaña",bal:"No",v4x4_required:false,pedidos_ytd:1},
+  {nombre:"VIlla Pajon",region:"Norte",precio_base:950,relieve:"Bosque",bal:"No",v4x4_required:true,pedidos_ytd:1},
+  {nombre:"Las Terrenas",region:"Este",precio_base:1200,relieve:"Playa",bal:"Playa",v4x4_required:false,pedidos_ytd:0},
+  {nombre:"Bayaguana",region:"Este",precio_base:800,relieve:"Llano",bal:"Río",v4x4_required:false,pedidos_ytd:0}
+];
 
 async function loadCamps(){
+  // Usar datos locales directamente si estamos en file:// o si falla Supabase
+  if(location.protocol === 'file:') {
+    camps = DEMO;
+    if(typeof renderCampsConFotos==='function') renderCampsConFotos(camps);
+    else renderCamps(camps);
+    populateSel(camps);
+    return;
+  }
   try{
     const d=await sbQ("campamentos",{select:"nombre,region,activo,precio_base,relieve,bal,v4x4_required,capacidad_max,pedidos_ytd",filter:"activo=eq.true",order:"pedidos_ytd.desc"});
-    camps=d.filter(c=>c.precio_base);
-  }catch(e){camps=DEMO;}
+    camps = (d && d.length) ? d.filter(c=>c.precio_base) : DEMO;
+  }catch(e){ camps=DEMO; }
+  if(!camps.length) camps=DEMO;
   if(typeof renderCampsConFotos==='function') renderCampsConFotos(camps);
   else renderCamps(camps);
   populateSel(camps);
@@ -455,6 +490,12 @@ function renderCamps(list){
           <button class="cbtn">Reservar</button>
         </div>
       </div>
+    </div>
+    </div><!-- /tab-content-info -->
+
+    <!-- TAB COTIZADOR -->
+    <div id="tab-content-cot" style="display:${lbActiveTab==='cot'?'block':'none'}">
+      ${renderCotizador()}
     </div>`;
   }).join('');
   setTimeout(()=>{document.querySelectorAll('.anim').forEach(el=>{const ob=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ob.disconnect();}})},{threshold:.1});ob.observe(el);});},50);
@@ -532,6 +573,455 @@ document.getElementById("fdate").min=new Date().toISOString().split("T")[0];
 
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});},{threshold:.1});
 document.querySelectorAll('.anim').forEach(el=>obs.observe(el));
+
+
+const INFO_CAMPS = {
+  "Villa Altagracia": {
+    ubicacion:"Los Arroyones, Villa Altagracia",
+    desc:"Campamento eco-friendly con río y jacuzzi natural, salto de Los Indios a 20 min, piscina para niños y WiFi. Paneles solares, fogón a leña y senderos. El más reservado de la red CAMPEACH — a solo 50 minutos de Santo Domingo.",
+    distancia:"50 min de SD",checkin:"9:00 AM (Tiny House 2:00 PM)",checkout:"5:00 PM (Tiny House 12:00 PM)",
+    capacidad:"150 personas",pets:true,
+    amenidades:["Río con jacuzzi natural","Salto de los Indios (20 min)","Piscina para niños","WiFi","Fogón, horno y BBQ a leña","Hamacas y columpios","Senderismo","Parqueo privado (4x2 y 4x4)","Electricidad solar"],
+    llevar:["Traje de baño","Ropa de cama y toallas","Repelente y bloqueador","Alimentos y bebidas","Linterna","Abrigo para la noche"],
+    servicios:[
+      {nombre:"Entrada Adulto",precio:"RD$750/noche"},
+      {nombre:"Entrada Niños (3-12 años)",precio:"RD$450/noche"},
+      {nombre:"Carpa Instalada (2p)",precio:"RD$2,300/noche"},
+      {nombre:"Tiny House (2p, sin equipar)",precio:"RD$2,700/noche"},
+      {nombre:"Tiny House 2 Niveles (4p)",precio:"RD$6,000 · 2 noches RD$11,000"},
+    ],
+    nota:"No hay restaurante ni delivery. Poca señal de celular.",
+    cancelacion:"Camping: no reembolsable, máx. 2 cambios de fecha. Tiny House/Carpa: cancela 2 días antes pierdes 50%, 24h antes 100%."
+  },
+  "Los Cacaos": {
+    ubicacion:"Los Cacaos, San Cristóbal",
+    desc:"Campamento TODO INCLUIDO con río propio, restaurante, bar y karaoke. Abierto viernes a domingo. Excursión a cascadas RD$800/p. A 1h 55min de SD — sin necesidad de 4x4. Menú campesino fijo, desayuno, almuerzo y cena incluidos.",
+    distancia:"1h 55min de SD",checkin:"3:00 PM",checkout:"3:00 PM",
+    capacidad:"50 personas",pets:false,
+    amenidades:["Río dentro de la propiedad","Restaurante, bar y karaoke","WiFi","Fogata","Hamacas y chaise lounge","Mesas de picnic","Electricidad","Parqueo privado"],
+    llevar:["Sábanas, almohadas y toallas","Traje de baño","Repelente","Linterna","Abrigo"],
+    servicios:[
+      {nombre:"Carpas Equipadas Adulto (TODO INCL.)",precio:"RD$3,500/p"},
+      {nombre:"Carpas Equipadas Pareja",precio:"RD$6,200"},
+      {nombre:"Tiny House Vista al Río (adulto)",precio:"RD$5,500/p"},
+      {nombre:"Tiny House Vista al Río (pareja)",precio:"RD$8,200"},
+      {nombre:"Bungalow Familiar (2p)",precio:"RD$10,000"},
+      {nombre:"Bungalow Familiar (4p)",precio:"RD$14,000"},
+      {nombre:"Bungalow Familiar (6p)",precio:"RD$21,000"},
+      {nombre:"Excursión a cascadas",precio:"RD$800/p"},
+      {nombre:"Buggy (2p, 2h30min+almuerzo)",precio:"USD$110"},
+    ],
+    nota:"No aceptan mascotas. Abierto viernes a domingo.",
+    cancelacion:"No reembolsable. Modificación de fecha hasta 2 veces con 3 días de aviso."
+  },
+  "Jarabacoa": {
+    ubicacion:"Jarabacoa, La Vega",
+    desc:"Escape perfecto en la Cordillera Central. 60 personas máximo. Pet Friendly. Cocina equipada compartida, WiFi, fogata, parapente RD$3,900, rafting RD$3,300, buggy desde RD$4,000. A 2h 20min de SD.",
+    distancia:"2h 20min de SD",checkin:"2:00 PM (hasta 7:00 PM)",checkout:"11:00 AM (áreas comunes hasta 12:30 PM)",
+    capacidad:"60 personas",pets:true,
+    amenidades:["Río y áreas sociales","Fogata","WiFi y electricidad","Cocina equipada compartida","Hamacas y BBQ","Baños y duchas compartidas","Parqueo privado"],
+    llevar:["Ropa de cama y toallas","Traje de baño","Repelente y bloqueador","Abrigo para la noche","Platos y cubiertos reutilizables","Bolsas de basura"],
+    servicios:[
+      {nombre:"Camping (equipo propio) Adulto",precio:"RD$800/p"},
+      {nombre:"Camping (equipo propio) Niños (3-10a)",precio:"RD$500/p"},
+      {nombre:"Tiny House (1-2p, con colchoneta)",precio:"RD$2,500"},
+      {nombre:"Desayuno (grupos 10+ personas)",precio:"RD$350/p"},
+      {nombre:"Almuerzo (grupos 10+ personas)",precio:"RD$450/p"},
+      {nombre:"Parapente (con GoPro)",precio:"RD$3,900/p"},
+      {nombre:"Rafting (~2 horas)",precio:"RD$3,300/p"},
+      {nombre:"Buggy (1-2p, 1 hora)",precio:"RD$4,000"},
+    ],
+    nota:"Pet Friendly. Restaurantes con delivery cercanos.",
+    cancelacion:"Camping: no reembolsable, máx. 2 cambios. Tiny House: no reembolsable ni modificable."
+  },
+  "Playa El Valle, Samana": {
+    ubicacion:"Playa El Valle, Samaná",
+    desc:"Camping directamente en la playa virgen de El Valle, Samaná — una de las más hermosas e inexploradas de RD. Llevar carpa propia o alquilar una instalada. Check-in de 9am a 7pm.",
+    distancia:"3h de SD",checkin:"9:00 AM - 7:00 PM",checkout:"5:00 PM",
+    capacidad:"100 personas",pets:false,
+    amenidades:["Playa virgen directa","Baños compartidos","Áreas comunes","Carpas disponibles"],
+    llevar:["Traje de baño","Sábanas","Repelente y bloqueador","Alimentos y bebidas","Ropa cómoda"],
+    servicios:[
+      {nombre:"Entrada Adulto (carpa propia)",precio:"RD$700"},
+      {nombre:"Entrada Niños 3-11 años",precio:"RD$400"},
+      {nombre:"Carpa Instalada Pareja",precio:"RD$1,500"},
+      {nombre:"Carpa Instalada 4 personas",precio:"RD$2,000"},
+    ],
+    cancelacion:"Consultar con el equipo CAMPEACH."
+  },
+  "Rincon, Samana": {
+    ubicacion:"Playa Rincón, Samaná",
+    desc:"Campamento holístico y ecológico en Playa Rincón. Pets Friendly, piscina, WiFi y cabañas ecológicas con jacuzzi (hasta 22p). Desayuno continental USD$10 o dominicano USD$12. Playa Rincón a 15 min, Playa Frontón a 36 min.",
+    distancia:"3h 35min de SD",checkin:"10:00 AM (hasta 7:00 PM)",checkout:"11:00 AM",
+    capacidad:"50 personas",pets:true,
+    amenidades:["Piscina","Senderismo","Cabañas ecológicas con baño privado","WiFi en áreas comunes","Fogata","Hamacas","Parqueo privado","Cocina de alquiler"],
+    llevar:["Traje de baño","Repelente y bloqueador","Vasos y platos reutilizables","Bolsas de basura (la basura te la llevas)"],
+    servicios:[
+      {nombre:"Entrada Adulto (carpa propia)",precio:"RD$700"},
+      {nombre:"Niños 5-12 años",precio:"RD$400"},
+      {nombre:"Cabaña Cuyaya (pareja)",precio:"RD$5,000"},
+      {nombre:"Cabaña Cuyaya (4p)",precio:"RD$8,200"},
+      {nombre:"Cabaña Bobo (5p, mini cocina)",precio:"RD$7,900"},
+      {nombre:"Cabaña Grande (16p, base 7p)",precio:"RD$15,400"},
+      {nombre:"Cabaña XL (22p, jacuzzi)",precio:"RD$16,900"},
+      {nombre:"Desayuno Continental",precio:"USD$10/p"},
+      {nombre:"Desayuno Dominicano",precio:"USD$12/p"},
+    ],
+    cancelacion:"No reembolsable. Modificación de fecha según disponibilidad."
+  },
+  "Santiago": {
+    ubicacion:"Presa de Taveras, Santiago",
+    desc:"Campamento frente a la Presa de Taveras con piscina panorámica, restaurante, kayak, botes de pedales y paddle board. Jet ski y lanchas cerca. Pets Friendly. A 2h 30min de SD.",
+    distancia:"2h 30min de SD",checkin:"2:00 PM",checkout:"12:00 PM",
+    capacidad:"30 personas",pets:true,
+    amenidades:["Piscina panorámica","Presa de Taveras","Restaurante (costo adicional)","Kayak y botes de pedales","Paddle Board","Billar, tiro al blanco y ajedrez","Hamacas y chaise longue","BBQ compartido","Parqueo privado"],
+    llevar:["Traje de baño","Ropa de cama y toallas","Repelente","Ropa abrigada para la noche"],
+    servicios:[
+      {nombre:"Camping sin desayuno Adulto",precio:"RD$900"},
+      {nombre:"Camping con desayuno Adulto",precio:"RD$1,300"},
+      {nombre:"Glamping (2p, baño privado)",precio:"RD$5,000"},
+      {nombre:"Cabaña (2p, baño privado)",precio:"RD$6,500"},
+      {nombre:"Habitación (4p, baño privado)",precio:"RD$8,800"},
+      {nombre:"Mini Apartamento (5p)",precio:"RD$9,800"},
+      {nombre:"Mini Apartamento (6p)",precio:"RD$10,800"},
+      {nombre:"Kayak simple",precio:"RD$550/hora"},
+      {nombre:"Kayak doble",precio:"RD$750/hora"},
+      {nombre:"Paddle Board",precio:"RD$600/hora"},
+    ],
+    cancelacion:"No reembolsable. Modificación de fecha hasta 2 veces."
+  },
+  "Punta Cana": {
+    ubicacion:"Punta Cana / Lavacama, La Altagracia",
+    desc:"Camping y Bubble Glamping con A/C en playa de Punta Cana. Desayuno continental y café ilimitados. Eco Lodge con cama King. Fogata privada disponible. A 3h de SD.",
+    distancia:"3h de SD",checkin:"Flexible",checkout:"Flexible",
+    capacidad:"50 personas",pets:false,
+    amenidades:["Acceso a playa","Bubble Glamping A/C (cama queen, WiFi)","Eco Lodge (cama King, balcón)","Desayuno continental incluido","Fogata privada disponible"],
+    llevar:["Traje de baño","Repelente y bloqueador","Ropa cómoda"],
+    servicios:[
+      {nombre:"Camping Adulto (carpa propia)",precio:"RD$1,700"},
+      {nombre:"Plan Día 2p (carpa+2 desayunos)",precio:"RD$3,800"},
+      {nombre:"Plan Día 4p",precio:"RD$7,000"},
+      {nombre:"Bubble Glamping (Dom-Jue)",precio:"RD$10,500"},
+      {nombre:"Bubble Glamping (Vie-Sáb)",precio:"RD$11,600"},
+      {nombre:"Eco Lodge (Lun-Jue)",precio:"RD$4,500"},
+      {nombre:"Eco Lodge (fin de semana)",precio:"RD$5,000"},
+    ],
+    cancelacion:"Consultar con el equipo CAMPEACH."
+  },
+  "Taiku": {
+    ubicacion:"Juan Adrián, Monseñor Nouel",
+    desc:"Taikú Bike Park & Glamping. Río cercano, bar y restaurante, rutas de senderismo de 4km y 8km, yoga y masaje en el arroyo. Chozas tropicales con baño privado. Privatización desde RD$20,000. A 1h 15min de SD.",
+    distancia:"1h 15min de SD",checkin:"2:00 PM (hasta 5:00 PM)",checkout:"12:00 PM",
+    capacidad:"40 personas",pets:true,
+    amenidades:["Río cercano","Bar y restaurante","Rutas senderismo (4km Fundadores / 8km Charcos)","Baños con agua fría y caliente","Parqueo vigilado","Electricidad"],
+    llevar:["Sábanas y almohada","Toalla","Traje de baño","Repelente","Ropa cómoda"],
+    servicios:[
+      {nombre:"Camping (equipo propio)",precio:"RD$600/p"},
+      {nombre:"Camping con equipo incluido",precio:"RD$1,600/p"},
+      {nombre:"Basecamp — Choza (pareja)",precio:"RD$1,900"},
+      {nombre:"Tropical Hut (pareja, baño privado)",precio:"RD$2,900"},
+      {nombre:"Hiking (1-6p)",precio:"RD$3,000/p"},
+      {nombre:"Hiking (7+ personas)",precio:"RD$600/p"},
+      {nombre:"Yoga (8+ personas)",precio:"RD$400/p"},
+      {nombre:"Masaje en el Arroyo",precio:"RD$2,000/p"},
+    ],
+    cancelacion:"Pago 100% al reservar. Consultar política de cambios."
+  },
+  "Ocoa": {
+    ubicacion:"Rancho Arriba, San José de Ocoa",
+    desc:"Campamento a 700m de altura con río y cascada a 2 minutos por sendero. Pets Friendly, ideal para overlands. Sin restaurante — debes traer todo. Colmado a 5 min. A 1h 45min de SD.",
+    distancia:"1h 45min de SD",checkin:"9:00 AM",checkout:"5:00 PM",
+    capacidad:"50 personas",pets:true,
+    amenidades:["Río y cascada (2 min a pie)","Senderismo","Fogata","BBQ y parrilla a leña","Baños compartidos","Parqueo privado","Electricidad para celulares"],
+    llevar:["Todo lo que vayas a comer y beber","Ropa de cama","Traje de baño","Repelente y bloqueador","Carbón para BBQ","Linterna","Abrigo"],
+    servicios:[
+      {nombre:"Entrada Adulto",precio:"RD$800/noche"},
+      {nombre:"Entrada Niños (3-11 años)",precio:"RD$500/noche"},
+      {nombre:"Niños menores de 2 años",precio:"Gratis"},
+    ],
+    nota:"Sin restaurante ni delivery. No hay transporte público.",
+    cancelacion:"No reembolsable. Modificación hasta 2 veces. Lluvias intensas: se permite 3er cambio."
+  },
+  "Monseñor": {
+    ubicacion:"Cañabón, Bonao (frente a Presa Rincón)",
+    desc:"Campamento frente a la Presa Rincón, rodeado de montañas. Kayak incluido 30min/día, pesca, cocina a leña, horno de pizza, fogata. Pets Friendly. Vehículo alto recomendado (1.5km camino no asfaltado). Abierto miércoles a domingo.",
+    distancia:"1h 30min de SD",checkin:"3:00 PM",checkout:"3:00 PM",
+    capacidad:"30 personas",pets:true,
+    amenidades:["Balneario en presa","Kayak (30 min/día incluido)","Pesca","Horno de pizza a leña","Fogata","Hamacas","Juegos de mesa","Parqueo privado"],
+    llevar:["Ropa de cama","Traje de baño","Repelente","Abrigo","Linterna"],
+    servicios:[
+      {nombre:"Camping Básico Adulto",precio:"RD$1,000/noche"},
+      {nombre:"Camping Básico Niños (4-10a)",precio:"RD$750/noche"},
+      {nombre:"Camping con Equipos Adulto",precio:"RD$2,000/noche"},
+      {nombre:"Camping con Equipos Pareja",precio:"RD$4,000/noche"},
+      {nombre:"Pasadía Domingos (9am-4pm)",precio:"RD$1,500/adulto"},
+      {nombre:"Paseo en bote (30 min)",precio:"RD$500/p"},
+      {nombre:"Paseo a caballo (30 min)",precio:"RD$500/p"},
+      {nombre:"Desayuno",precio:"RD$450/p"},
+      {nombre:"Almuerzo",precio:"RD$550/p"},
+      {nombre:"Cena",precio:"RD$550/p"},
+    ],
+    nota:"Abierto miércoles a domingo. Sin electricidad (llevar batería portátil). Sin transporte público.",
+    cancelacion:"No reembolsable. Cambio de fecha con mínimo 4 días de aviso."
+  },
+  "Hato Mayor": {
+    ubicacion:"El Valle, Hato Mayor del Rey",
+    desc:"Campamento con río propio, restaurante, gift shop, tour de café/cacao/ámbar y baño en barro terapéutico. A 10 min del Parque Nacional Los Haitises. Cerrado los domingos. Pets Friendly. A 2h 50min de SD.",
+    distancia:"2h 50min de SD",checkin:"9:00 AM",checkout:"5:00 PM",
+    capacidad:"100 personas",pets:true,
+    amenidades:["Río dentro de la propiedad","Restaurante y gift shop","Tour café, cacao y ámbar","Baño en barro terapéutico","WiFi","Kayak (costo extra)","Salvavidas disponible","Parqueo privado"],
+    llevar:["Ropa de cama (sábanas, toallas, almohadas)","Traje de baño","Repelente","Bloqueador","Linterna"],
+    servicios:[
+      {nombre:"Camping s/alimentos Adulto",precio:"RD$700"},
+      {nombre:"Camping con alimentos Adulto",precio:"RD$2,100"},
+      {nombre:"Plan Todo Incl. + tour (adulto)",precio:"RD$2,350"},
+      {nombre:"Plan + Cascadas Vírgenes",precio:"RD$2,800"},
+      {nombre:"Plan + Los Haitises",precio:"RD$3,200"},
+      {nombre:"Plan + Cascadas + Haitises",precio:"RD$4,000"},
+      {nombre:"Habitación (2p)",precio:"RD$3,500"},
+      {nombre:"Habitación (pareja)",precio:"RD$5,500"},
+      {nombre:"Pasadía Adulto",precio:"RD$1,300"},
+    ],
+    nota:"Cerrado los domingos. No se permiten bebidas externas (descorche RD$600/botella).",
+    cancelacion:"No reembolsable. 1 sola modificación. 30 días para usar el crédito."
+  },
+  "Constanza": {
+    ubicacion:"Constanza, La Vega",
+    desc:"Campamento en las alturas de Constanza con fogata, desayuno dominicano, zip line, animales de granja, restaurante, bar y mini market. A 45 min del Salto Aguas Blancas. Pets Friendly.",
+    distancia:"2h 30min de SD",checkin:"3:00 PM",checkout:"1:00 PM",
+    capacidad:"100 personas",pets:true,
+    amenidades:["Zip Line (costo extra)","Restaurante, bar y mini market","Desayuno dominicano","Fogata (gratis sábados)","Animales de granja","Cancha de fútbol y volleyball","Billar, ping pong y juegos","Chimenea","BBQ (reserva previa)"],
+    llevar:["Ropa muy abrigada (hace frío)","Ropa de cama o sleeping bag","Traje de baño","Repelente","Linterna"],
+    servicios:[
+      {nombre:"Entrada Adulto",precio:"RD$1,500"},
+      {nombre:"Entrada Pareja",precio:"RD$3,000"},
+      {nombre:"Niños 0-2 años",precio:"Gratis"},
+      {nombre:"Zip Line",precio:"RD$350/p"},
+      {nombre:"Caballos",precio:"RD$500/hora"},
+      {nombre:"Leña para fogata (otros días)",precio:"RD$100"},
+    ],
+    cancelacion:"No reembolsable. Modificación según disponibilidad."
+  },
+  "Bonao": {
+    ubicacion:"Bejucal, Bonao",
+    desc:"Campamento Bejucal Bonao con acceso al Salto Arroyo Carlos y la Plaza Taína. Naturaleza de la cordillera central a 1h 30min de SD.",
+    distancia:"1h 30min de SD",checkin:"Flexible",checkout:"Flexible",
+    capacidad:"50 personas",pets:false,
+    amenidades:["Salto Arroyo Carlos","Plaza Taína","Áreas sociales","Baños","Parqueo"],
+    llevar:["Traje de baño","Ropa de cama","Repelente","Alimentos"],
+    servicios:[
+      {nombre:"Entrada Adulto",precio:"RD$700"},
+      {nombre:"Niños menores de 2 años",precio:"Gratis"},
+    ],
+    cancelacion:"Consultar con el equipo CAMPEACH."
+  },
+  "Comatillo": {
+    ubicacion:"Comatillo, Bayaguana",
+    desc:"Campamento de selva con 3 bares, restaurante, río, piscina y villa para 12 personas. Pets Friendly. Pasadía disponible de 9am-5pm por RD$100. Salto Alto a 8 min. A 1h 44min de SD.",
+    distancia:"1h 44min de SD",checkin:"3:00 PM",checkout:"12:00 PM",
+    capacidad:"500 personas",pets:true,
+    amenidades:["Río y piscina (9:30am-9pm)","3 bares y restaurante","Billar, futbolito y volleyball","Casa de árbol (terraza)","Todo incluido","Bicicletas","Fogata (sábados)","Parqueo privado"],
+    llevar:["Traje de baño","Ropa de cama o sleeping bag","Repelente","Linterna","Abrigo"],
+    servicios:[
+      {nombre:"Camping Adulto (todo incluido)",precio:"RD$2,200"},
+      {nombre:"Cabaña Loft (pareja)",precio:"RD$7,600"},
+      {nombre:"Cabaña Loft (4p)",precio:"RD$13,475"},
+      {nombre:"Bunker (pareja)",precio:"RD$7,600"},
+      {nombre:"Cabaña 2 habitaciones (4p)",precio:"RD$14,050"},
+      {nombre:"Villa (12p, 1 noche)",precio:"RD$43,300"},
+      {nombre:"Villa (12p, 2+ noches/noche)",precio:"RD$41,000"},
+      {nombre:"BBQ",precio:"USD$10"},
+    ],
+    nota:"Alcohol no permitido en área de camping (descorche RD$600/botella). Piscina abierta 9:30am-9pm.",
+    cancelacion:"No reembolsable. Modificación según disponibilidad."
+  },
+  "San Cristobal": {
+    ubicacion:"San Cristóbal",
+    desc:"Campamento con piscina, cueva Taína, cabaña para hasta 12 personas y múltiples opciones de alojamiento. Todo incluido con 3 comidas. A solo 45 min de SD.",
+    distancia:"45 min de SD",checkin:"8:30 AM",checkout:"6:00 PM",
+    capacidad:"100 personas",pets:false,
+    amenidades:["Piscina","Cueva Taína","Cabañas (hasta 12p)","Tiendas con colchón","Personal de seguridad","Cocina de alquiler"],
+    llevar:["Traje de baño","Ropa cómoda","Repelente"],
+    servicios:[
+      {nombre:"Camping sin alimentos Adulto",precio:"RD$700"},
+      {nombre:"Camping Todo Incluido Adulto",precio:"RD$1,600"},
+      {nombre:"Tienda equipada s/alimentos",precio:"RD$1,000"},
+      {nombre:"Tienda equipada Todo Incluido",precio:"RD$2,100"},
+      {nombre:"Cabaña s/alimentos Adulto",precio:"RD$1,300"},
+      {nombre:"Cabaña Todo Incluido Adulto",precio:"RD$2,300"},
+      {nombre:"Pasadía Adulto (8:30am-6pm)",precio:"RD$1,100"},
+      {nombre:"Cocina de alquiler (máx. 5p)",precio:"RD$500"},
+    ],
+    cancelacion:"Consultar con el equipo CAMPEACH."
+  },
+  "Azua": {
+    ubicacion:"Barrera, Azua de Compostela",
+    desc:"Campamento con piscina, restaurante, bar, desayuno dominicano incluido y WiFi. Paseo en barca, cabalgatas, masajes y ruta a Cueva de los Indios. Playas cercanas a 11-50 min. A 2h 24min de SD. No se permiten mascotas ni bebidas/comidas externas.",
+    distancia:"2h 24min de SD",checkin:"3:00 PM",checkout:"12:30 PM",
+    capacidad:"24 personas",pets:false,
+    amenidades:["Piscina","Restaurante y bar","Desayuno dominicano incluido","WiFi","Fogata","Hamacas y chaise lounge","Parqueo privado"],
+    llevar:["Traje de baño","Repelente y bloqueador","Ropa cómoda","Toallas","Linterna","Abrigo"],
+    servicios:[
+      {nombre:"Camping Adulto (carpa propia)",precio:"RD$1,400"},
+      {nombre:"Camping Niños (6-10a)",precio:"RD$800"},
+      {nombre:"Glamping (pareja)",precio:"RD$4,500"},
+      {nombre:"Glamping (2p c/decoración)",precio:"RD$6,600"},
+      {nombre:"Habitación Doble (2p)",precio:"RD$6,600"},
+      {nombre:"Habitación Superior (3p)",precio:"RD$9,800"},
+      {nombre:"Habitación Familiar (4p)",precio:"RD$12,300"},
+      {nombre:"Pasadía Adulto (10am-6pm)",precio:"RD$1,600"},
+      {nombre:"Paseo en barca (grupo 6p)",precio:"RD$3,000"},
+      {nombre:"Cabalgata (1:30h)",precio:"RD$1,500/p"},
+      {nombre:"Masaje relajante (30 min)",precio:"RD$1,000/p"},
+    ],
+    nota:"No se permiten mascotas, bebidas ni comidas externas. Prohibido fumar.",
+    cancelacion:"Cancela 1 semana antes: pierdes 50%. Cancela 24h antes o no asiste: pierde 100%. No se modifica la fecha."
+  },
+  "Cabarete": {
+    ubicacion:"Cabarete, Puerto Plata",
+    desc:"Campamento con plan full: desayuno, almuerzo y refrigerios incluidos. WiFi, glamping, habitación submarino (14p) y apartamento estudio con cocina. Niños menores de 11 años gratis. Cerrado los miércoles.",
+    distancia:"3h de SD",checkin:"2:00 PM",checkout:"12:00 PM",
+    capacidad:"30 personas",pets:false,
+    amenidades:["Desayuno y almuerzo incluidos","WiFi","Glamping","Habitación Submarino (14p)","Apartamento estudio con cocina","Áreas comunes y juegos recreativos"],
+    llevar:["Ropa de cama","Repelente","Bloqueador","Traje de baño"],
+    servicios:[
+      {nombre:"Plan Full Adulto",precio:"RD$1,700"},
+      {nombre:"Niños menores de 11 años",precio:"Gratis"},
+      {nombre:"Habitación Compartida (4p)",precio:"RD$1,200/p"},
+      {nombre:"Habitación Submarino (14p)",precio:"RD$1,200/p"},
+      {nombre:"Glamping (1-2p)",precio:"RD$4,000"},
+      {nombre:"Apartamento Estudio (6p)",precio:"RD$4,000"},
+    ],
+    nota:"Cerrado los miércoles.",
+    cancelacion:"Consultar con el equipo CAMPEACH."
+  },
+  "Montellano": {
+    ubicacion:"Los Ciruelos, Puerto Plata",
+    desc:"Campamento con río propio, tubing, restaurante, animales de granja y miel orgánica. Pets Friendly. Cabaña típica con baño privado y desayuno. Playa Sosúa a 20 min. Cerrado los lunes. A 3h 20min de SD.",
+    distancia:"3h 20min de SD",checkin:"3:30 PM",checkout:"5:00 PM (cabaña 2:30 PM)",
+    capacidad:"50 personas",pets:true,
+    amenidades:["Río y tubing","Restaurante (comida criolla)","Animales de granja","Hamacas y trampolín","Fogones y cocina equipada","Columpios","Área de juegos","Parqueo privado"],
+    llevar:["Traje de baño","Ropa de cama (si acampas)","Repelente","Linterna","Abrigo"],
+    servicios:[
+      {nombre:"Camping con equipo propio Adulto",precio:"RD$900"},
+      {nombre:"Camping con equipo propio Niños (6-12a)",precio:"RD$500"},
+      {nombre:"Camping sin equipo Adulto",precio:"RD$1,200"},
+      {nombre:"Cabaña Típica (pareja, baño privado)",precio:"RD$3,200"},
+      {nombre:"Pasadía Adulto (9am-7pm, con almuerzo)",precio:"RD$800"},
+    ],
+    nota:"Cerrado los lunes. Reservar con mínimo 5 días de antelación.",
+    cancelacion:"No reembolsable. Modificación de fecha hasta 1 vez."
+  },
+  "Jamao Al Norte": {
+    ubicacion:"Jamao al Norte, Espaillat",
+    desc:"El campamento más completo del norte. Glamping con desayuno dominicano, canyoning en Arroyo Frío y Cola de Pato, kayak, tubing, senderismo, rapel y cabalgatas. Río dentro de la propiedad.",
+    distancia:"2h 30min de SD",checkin:"Flexible",checkout:"Flexible",
+    capacidad:"40 personas",pets:false,
+    amenidades:["Glamping","Río","Canyoning","Kayak","Tubing","Senderismo","Cabalgatas","Rapel","Desayuno dominicano incluido"],
+    llevar:["Traje de baño","Ropa cómoda","Repelente","Ropa de cama","Linterna"],
+    servicios:[
+      {nombre:"Glamping (1p)",precio:"RD$4,800"},
+      {nombre:"Glamping (2p)",precio:"RD$6,600"},
+      {nombre:"Glamping (3p)",precio:"RD$9,900"},
+      {nombre:"Glamping (4p)",precio:"RD$12,300"},
+      {nombre:"Pasadía Adulto (10am-6pm)",precio:"RD$1,200"},
+      {nombre:"Canyoning Arroyo Frío",precio:"RD$1,800/p"},
+      {nombre:"Canyoning Cola de Pato",precio:"RD$1,600/p"},
+      {nombre:"Senderismo Los Tinajones",precio:"RD$1,450/p"},
+      {nombre:"Rapel Hongo Mágico",precio:"RD$2,300/p"},
+      {nombre:"Kayak",precio:"RD$1,750/p"},
+      {nombre:"Tubing",precio:"RD$1,500/p"},
+      {nombre:"Cabalgata",precio:"RD$1,600/p"},
+    ],
+    cancelacion:"Pago 100% al reservar. Consultar política de cambios."
+  },
+  "Santo Domingo": {
+    ubicacion:"Santo Domingo Este",
+    desc:"Tiny Houses con baño en cueva natural y fogata incluida a minutos de la ciudad. Piscina, cenote y experiencias únicas para no salir del Gran Santo Domingo.",
+    distancia:"Cercanías SD Este",checkin:"3:00 PM",checkout:"12:00 PM",
+    capacidad:"100 personas",pets:false,
+    amenidades:["Tiny Houses","Piscina y cenote","Baño en cueva natural","Fogata incluida","Desayuno incluido","Áreas sociales"],
+    llevar:["Traje de baño","Repelente","Ropa cómoda"],
+    servicios:[
+      {nombre:"Entrada Adulto",precio:"RD$2,560"},
+      {nombre:"Entrada Niños (3-12a)",precio:"RD$1,280"},
+      {nombre:"Tiny House (Mar-Jue, 2p)",precio:"RD$3,500"},
+      {nombre:"Tiny House (Vie-Dom, 2p)",precio:"RD$7,200"},
+      {nombre:"Tiny House Campestre (Mar-Jue)",precio:"RD$4,500"},
+      {nombre:"Tiny House Campestre (Vie-Dom)",precio:"RD$8,950"},
+      {nombre:"Habitación A/C (Mar-Jue)",precio:"RD$5,500"},
+      {nombre:"Habitación A/C (Vie-Dom)",precio:"RD$9,500"},
+    ],
+    cancelacion:"Consultar con el equipo CAMPEACH."
+  },
+  "Lavacama": {
+    ubicacion:"Punta Cana, La Altagracia",
+    desc:"Camping en playa de Punta Cana. Bubble Glamping con A/C, cama queen, WiFi y desayuno. Eco Lodge con cama King y balcón. Fogata privada disponible (RD$10).",
+    distancia:"3h de SD",checkin:"Flexible",checkout:"Flexible",
+    capacidad:"50 personas",pets:false,
+    amenidades:["Playa privada","Bubble Glamping A/C","Eco Lodge cama King","Desayuno continental","WiFi","Fogata privada"],
+    llevar:["Traje de baño","Repelente y bloqueador","Ropa cómoda"],
+    servicios:[
+      {nombre:"Camping Adulto (carpa propia)",precio:"RD$1,700"},
+      {nombre:"Camping Niños (2-9a)",precio:"RD$700"},
+      {nombre:"Plan Día 2p (carpa+desayunos)",precio:"RD$3,800"},
+      {nombre:"Bubble Glamping (Dom-Jue)",precio:"RD$10,500"},
+      {nombre:"Bubble Glamping (Vie-Sáb)",precio:"RD$11,600"},
+      {nombre:"Eco Lodge (Lun-Jue)",precio:"RD$4,500"},
+      {nombre:"Eco Lodge (fines de semana)",precio:"RD$5,000"},
+    ],
+    cancelacion:"Consultar con el equipo CAMPEACH."
+  },
+  "Pinar del Valle": {
+    ubicacion:"Pinar del Valle, Constanza",
+    desc:"Casas rústicas glamping en bosque de pinos de Constanza. WiFi, balcón, desayuno y hamacas. Grupos de 4 a 30 personas. Niños menores de 12 años gratis (1 por adulto con documento).",
+    distancia:"2h 30min de SD",checkin:"Flexible",checkout:"Flexible",
+    capacidad:"30 personas",pets:false,
+    amenidades:["Casas rústicas glamping","WiFi","Desayuno incluido","Hamacas","Balcón privado","Bosque de pinos"],
+    llevar:["Ropa muy abrigada","Traje de baño","Repelente","Linterna"],
+    servicios:[
+      {nombre:"Entrada Camping (4-5p, carpa propia)",precio:"RD$1,500/p"},
+      {nombre:"Entrada Camping (13-30p)",precio:"RD$900/p"},
+      {nombre:"Paquete Camping completo (2p)",precio:"RD$2,900/p"},
+      {nombre:"Casa Glamping (2p)",precio:"RD$6,800"},
+      {nombre:"Casa Glamping (3p)",precio:"RD$8,100"},
+      {nombre:"Casa Glamping (4p)",precio:"RD$10,000"},
+      {nombre:"Casa Glamping (5p)",precio:"RD$11,500"},
+    ],
+    nota:"Niños menores de 12 años gratis (1 por adulto con documento).",
+    cancelacion:"Consultar con el equipo CAMPEACH."
+  },
+  "VIlla Pajon": {
+    ubicacion:"Villa Pajón, Constanza",
+    desc:"Campamento de montaña en Villa Pajón. Naturaleza, bosque y aventura en la cordillera central. Requiere vehículo 4x4.",
+    distancia:"2h de SD",checkin:"Flexible",checkout:"Flexible",
+    capacidad:"50 personas",pets:false,
+    amenidades:["Bosque de montaña","Áreas recreativas","Parqueo"],
+    llevar:["Ropa abrigada","Equipos de camping","Repelente","Linterna"],
+    servicios:[{nombre:"Consultar disponibilidad",precio:"Desde RD$950/p"}],
+    cancelacion:"Consultar con el equipo CAMPEACH."
+  },
+  "Las Terrenas": {
+    ubicacion:"Las Terrenas, Samaná",
+    desc:"Camping en Las Terrenas, Samaná. Playa, naturaleza y la magia del noreste dominicano.",
+    distancia:"3h de SD",checkin:"Flexible",checkout:"Flexible",
+    capacidad:"50 personas",pets:false,
+    amenidades:["Acceso a playa","Naturaleza","Áreas sociales"],
+    llevar:["Traje de baño","Repelente","Ropa cómoda"],
+    servicios:[{nombre:"Consultar disponibilidad",precio:"Desde RD$1,200/p"}],
+    cancelacion:"Consultar con el equipo CAMPEACH."
+  },
+  "Bayaguana": {
+    ubicacion:"Bayaguana, Monte Plata",
+    desc:"Campamento en Bayaguana con río, naturaleza y tranquilidad a menos de 1 hora de Santo Domingo.",
+    distancia:"1h de SD",checkin:"Flexible",checkout:"Flexible",
+    capacidad:"50 personas",pets:false,
+    amenidades:["Acceso a río","Naturaleza","Áreas sociales","Parqueo"],
+    llevar:["Traje de baño","Ropa de cama","Repelente","Alimentos"],
+    servicios:[{nombre:"Consultar disponibilidad",precio:"Desde RD$800/p"}],
+    cancelacion:"Consultar con el equipo CAMPEACH."
+  },
+};
 
 const FOTOS_DRIVE = {
   "Villa Altagracia": ["https://drive.google.com/thumbnail?id=1PG_tE0gFlSlMCjzcp5mbO3FQ1lWXzyxK&sz=w600", "https://drive.google.com/thumbnail?id=1OhO-n_DyIS1ZUKODoyvWH4lCTD9FHvmu&sz=w600", "https://drive.google.com/thumbnail?id=1NC_Y8mPkR4VACr3M1gzfQ0FgCTTOTXOc&sz=w600", "https://drive.google.com/thumbnail?id=1OiGd67m1YYB4gyVu7KElzcXybDbQYjQO&sz=w600", "https://drive.google.com/thumbnail?id=1M2SD3E5XSOh46yj3Ync1XWVYww8hV_pk&sz=w600", "https://drive.google.com/thumbnail?id=1PTb5QnSR4A7Bj0R7USbkJ5qaMg29pKxm&sz=w600", "https://drive.google.com/thumbnail?id=1MZnE5OCvj_iC4-qfOeiP92J8FERGJI96&sz=w600", "https://drive.google.com/thumbnail?id=1NMThyap1f5KtcaM5kiGvlkURhzM9vYR8&sz=w600", "https://drive.google.com/thumbnail?id=1NNiwbNZt017Nd8ODncwrXokCE-dLvmMG&sz=w600", "https://drive.google.com/thumbnail?id=1LFQ8atLBwx4ybvueiQKAxb5mMTRkdYVQ&sz=w600"],
@@ -670,7 +1160,7 @@ function prevFoto(cardIdx) {
 }
 
 // ── LIGHTBOX COMPLETO ────────────────────────────────────
-let lbCamp = null, lbIdx = 0;
+let lbCamp = null, lbIdx = 0, lbActiveTab = "info";
 
 function openMoConFotos(i) {
   const c = camps[i];
@@ -678,75 +1168,90 @@ function openMoConFotos(i) {
   const fotos = getFotos(c.nombre);
   lbCamp = { c, fotos };
   lbIdx = carruselState[i]?.idx || 0;
+  initCotizador(c);
+  lbActiveTab = 'info'; // reset tab
   renderLightbox();
   document.getElementById("mo").classList.add("open");
   document.body.style.overflow = "hidden";
 }
 
+
 function renderLightbox() {
   if (!lbCamp) return;
   const { c, fotos } = lbCamp;
-  const tags = [c.bal && c.bal !== "No" ? c.bal : null, c.relieve, c.v4x4_required ? "Requiere 4x4" : null].filter(Boolean);
+  const info = INFO_CAMPS[c.nombre] || {};
   const fotoActual = fotos[lbIdx] || null;
+  const tags = [c.bal && c.bal !== "No" ? c.bal : null, c.relieve, c.v4x4_required ? "Requiere 4x4" : null].filter(Boolean);
+  const isInfo = (lbActiveTab !== 'cot');
 
   document.getElementById("mi").innerHTML = `
-    <!-- Galería principal -->
-    <div style="position:relative;background:#111;border-radius:24px 24px 0 0;overflow:hidden">
-      ${fotoActual
-        ? `<img src="${fotoActual}" alt="${c.nombre}" id="lb-img-main"
-             style="width:100%;height:320px;object-fit:cover;display:block"
-             onerror="this.src='';this.style.background='#222'">`
-        : `<div style="width:100%;height:280px;background:linear-gradient(135deg,#0d5c3a,#1a7a50);display:flex;align-items:center;justify-content:center;font-size:64px">🏕</div>`
-      }
-      <!-- Nav arrows en lightbox -->
-      ${fotos.length > 1 ? `
-        <button onclick="prevLb()" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;border-radius:50%;width:38px;height:38px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center">‹</button>
-        <button onclick="nextLb()" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;border-radius:50%;width:38px;height:38px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center">›</button>
-        <div style="position:absolute;bottom:12px;right:16px;background:rgba(0,0,0,.6);color:white;font-size:12px;padding:4px 10px;border-radius:20px">${lbIdx+1}/${fotos.length}</div>
-      ` : ''}
+    <div style="position:relative">
+      <button onclick="closeMo()" style="position:absolute;top:14px;left:14px;z-index:10;background:white;border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,.15)">&#x2715;</button>
+      ${fotoActual ? `<img src="${fotoActual}" alt="${c.nombre}" id="lb-img-main" style="width:100%;height:280px;object-fit:cover;display:block" onerror="this.style.background='#1a3a2a'">` : `<div style="width:100%;height:220px;background:linear-gradient(135deg,#0d5c3a,#1a7a50);display:flex;align-items:center;justify-content:center;font-size:64px">&#x1F3D5;</div>`}
+      ${fotos.length > 1 ? `<button onclick="prevLb()" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.92);border:none;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2)">&#x2039;</button><button onclick="nextLb()" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.92);border:none;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2)">&#x203A;</button><div style="position:absolute;bottom:12px;right:14px;background:rgba(0,0,0,.55);color:white;font-size:12px;font-weight:500;padding:4px 10px;border-radius:20px">${lbIdx+1} / ${fotos.length}</div>` : ""}
     </div>
 
-    <!-- Miniaturas -->
-    ${fotos.length > 1 ? `
-      <div style="padding:12px 16px;background:#1a1a1a;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch" id="lb-thumbs">
-        ${fotos.map((f, ti) => `
-          <img src="${f}" alt="" onclick="goLb(${ti})"
-            style="width:60px;height:60px;object-fit:cover;border-radius:6px;cursor:pointer;flex-shrink:0;border:2px solid ${ti===lbIdx?'#01a1aa':'transparent'};opacity:${ti===lbIdx?'1':'.6'};transition:all .2s"
-            id="lb-thumb-${ti}" onerror="this.style.display='none'">
-        `).join('')}
-      </div>
-    ` : ''}
+    ${fotos.length > 1 ? `<div style="padding:8px 14px;background:#f0f0ec;display:flex;gap:5px;overflow-x:auto;-webkit-overflow-scrolling:touch" id="lb-thumbs">${fotos.map((f,ti)=>`<img src="${f}" alt="" onclick="goLb(${ti})" style="width:52px;height:52px;object-fit:cover;border-radius:5px;cursor:pointer;flex-shrink:0;border:2px solid ${ti===lbIdx?"#0d5c3a":"transparent"};opacity:${ti===lbIdx?"1":".6"};transition:all .2s" id="lb-thumb-${ti}" onerror="this.style.display='none'">`).join("")}</div>` : ""}
 
-    <!-- Info campamento -->
+    <div style="display:flex;border-bottom:2px solid #e8e8e4;background:white;position:sticky;top:0;z-index:5">
+      <button onclick="switchTab('info')" id="tab-btn-info" style="flex:1;padding:11px 0;font-size:13px;font-weight:700;border:none;border-bottom:${isInfo ? "2px solid #0d5c3a" : "2px solid transparent"};margin-bottom:-2px;background:transparent;cursor:pointer;color:${isInfo ? "#0d5c3a" : "#a8a8a4"};transition:all .2s">
+        &#x1F3D5; Info
+      </button>
+      <button onclick="switchTab('cot')" id="tab-btn-cot" style="flex:1;padding:11px 0;font-size:13px;font-weight:700;border:none;border-bottom:${!isInfo ? "2px solid #ff9820" : "2px solid transparent"};margin-bottom:-2px;background:transparent;cursor:pointer;color:${!isInfo ? "#ff9820" : "#a8a8a4"};transition:all .2s">
+        &#x1F9EE; Cotizar
+      </button>
+    </div>
+
+    <div id="tab-content-info" style="display:${isInfo ? "block" : "none"}">
     <div style="padding:20px 24px">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green);margin-bottom:6px">${c.region}</div>
-      <div style="font-family:var(--ff-d);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:12px;letter-spacing:-.3px">${c.nombre}</div>
-      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px">
-        ${tags.map(t=>`<span style="padding:5px 12px;border-radius:100px;background:var(--ink-6);color:var(--ink-3);font-size:12px;font-weight:500">${t}</span>`).join('')}
-      </div>
-      <div style="background:var(--green-xl);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <div>
-          <div style="font-size:11px;color:var(--green);font-weight:600;margin-bottom:2px">Desde</div>
-          <div style="font-family:var(--ff-d);font-size:26px;font-weight:700;color:var(--green)">RD$${Number(c.precio_base).toLocaleString('es-DO')}</div>
-          <div style="font-size:11px;color:var(--green)">por persona / noche</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;gap:12px">
+        <div style="flex:1">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#0d5c3a;margin-bottom:4px">${info.ubicacion||c.region} &middot; ${info.distancia||""}</div>
+          <div style="font-family:var(--ff-d);font-size:22px;font-weight:700;color:#111110;letter-spacing:-.3px;line-height:1.2">${c.nombre}</div>
         </div>
-        <div style="font-size:13px;color:var(--green);text-align:right">
-          ${c.pedidos_ytd > 5 ? '⭐ ' + c.pedidos_ytd + ' reservas este año' : '✓ Disponible'}
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:10px;color:#a8a8a4">Desde</div>
+          <div style="font-family:var(--ff-d);font-size:20px;font-weight:700;color:#0d5c3a">RD$${Number(c.precio_base).toLocaleString("es-DO")}</div>
+          <div style="font-size:10px;color:#a8a8a4">/persona</div>
         </div>
       </div>
-      <div style="display:flex;gap:10px">
-        <button class="mcm" onclick="document.getElementById('csel').value='${c.nombre}';closeMo();document.getElementById('reservar').scrollIntoView({behavior:'smooth'})">
-          Reservar este campamento
-        </button>
-        <a href="https://wa.me/18299370674?text=${encodeURIComponent('Hola! Me interesa el campamento de ' + c.nombre + '. ¿Pueden darme información y precios?')}" target="_blank" class="mcw">💬 WA</a>
-      </div>
-    </div>`;
 
-  // Scroll thumb al activo
-  setTimeout(() => {
-    const th = document.getElementById(`lb-thumb-${lbIdx}`);
-    th?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-  }, 50);
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #e8e8e4">
+        ${tags.map(t=>`<span style="padding:3px 10px;border-radius:100px;background:#e8f5ee;color:#0d5c3a;font-size:11px;font-weight:600">${t}</span>`).join("")}
+        ${info.pets ? `<span style="padding:3px 10px;border-radius:100px;background:#fff8e8;color:#854F0B;font-size:11px;font-weight:600">&#x1F43E; Pets Friendly</span>` : ""}
+        ${c.pedidos_ytd > 5 ? `<span style="padding:3px 10px;border-radius:100px;background:#fff8e8;color:#854F0B;font-size:11px;font-weight:600">&#x2B50; ${c.pedidos_ytd} reservas</span>` : ""}
+        ${info.nota ? `<span style="padding:3px 10px;border-radius:100px;background:#fee8e8;color:#c94a2a;font-size:11px;font-weight:600">&#x26A0;&#xFE0F; ${info.nota}</span>` : ""}
+      </div>
+
+      <p style="font-size:13.5px;color:#3a3a38;line-height:1.7;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #e8e8e4">${info.desc||"Campamento en Republica Dominicana."}</p>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #e8e8e4">
+        ${[{icon:"&#x1F552;",label:"Check-in",val:info.checkin||"3:00 PM"},{icon:"&#x1F55B;",label:"Check-out",val:info.checkout||"12:00 PM"},{icon:"&#x1F465;",label:"Capacidad",val:info.capacidad||"Consultar"}].map(item=>`<div style="text-align:center;padding:10px 6px;background:#f5f4f0;border-radius:8px"><div style="font-size:18px;margin-bottom:3px">${item.icon}</div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:#a8a8a4;margin-bottom:2px">${item.label}</div><div style="font-size:12px;font-weight:600;color:#3a3a38">${item.val}</div></div>`).join("")}
+      </div>
+
+      ${info.amenidades && info.amenidades.length ? `<div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #e8e8e4"><div style="font-size:13px;font-weight:700;color:#111110;margin-bottom:10px">Lo que incluye</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">${info.amenidades.map(a=>`<div style="display:flex;align-items:center;gap:7px;font-size:12.5px;color:#3a3a38"><span style="color:#0d5c3a;font-weight:700">&#x2713;</span>${a}</div>`).join("")}</div></div>` : ""}
+
+      ${info.servicios && info.servicios.length ? `<div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #e8e8e4"><div style="font-size:13px;font-weight:700;color:#111110;margin-bottom:10px">Precios</div>${info.servicios.map((s,si)=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;${si<info.servicios.length-1?"border-bottom:1px solid #e8e8e4":""}"><span style="font-size:12.5px;color:#3a3a38">${s.nombre}</span><span style="font-size:12.5px;font-weight:700;color:#0d5c3a;white-space:nowrap;margin-left:8px">${s.precio}</span></div>`).join("")}</div>` : ""}
+
+      ${info.llevar && info.llevar.length ? `<div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #e8e8e4"><div style="font-size:13px;font-weight:700;color:#111110;margin-bottom:10px">Que llevar</div><div style="display:flex;flex-wrap:wrap;gap:6px">${info.llevar.map(l=>`<span style="padding:3px 10px;border-radius:100px;background:#f5f4f0;color:#6b6b68;font-size:12px">&middot; ${l}</span>`).join("")}</div></div>` : ""}
+
+      ${info.cancelacion ? `<div style="margin-bottom:16px;padding:12px 14px;background:#fff8e8;border-radius:8px;border:1px solid rgba(255,152,32,.2)"><div style="font-size:11px;font-weight:700;color:#854F0B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Politica de cancelacion</div><div style="font-size:12px;color:#854F0B;line-height:1.5">${info.cancelacion}</div></div>` : ""}
+
+      <div style="display:flex;gap:10px">
+        <button onclick="switchTab('cot')" style="flex:1;background:#ff9820;color:white;border:none;padding:13px;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer">&#x1F9EE; Cotizar ahora</button>
+        <a href="https://wa.me/18299370674?text=${encodeURIComponent("Hola! Me interesa el campamento de " + c.nombre + ". Pueden darme informacion y precios?")}" target="_blank" style="background:#25D366;color:white;padding:13px 20px;border-radius:100px;font-size:14px;font-weight:700;text-decoration:none;display:flex;align-items:center">&#x1F4AC;</a>
+      </div>
+    </div>
+    </div>
+
+    <div id="tab-content-cot" style="display:${!isInfo ? "block" : "none"}">
+      ${renderCotizador()}
+    </div>
+  `;
+
+  setTimeout(()=>{
+    document.getElementById("lb-thumb-"+lbIdx)?.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
+  },50);
 }
 
 function goLb(idx) {
@@ -773,6 +1278,453 @@ document.addEventListener('keydown', e => {
 loadCamps();
 loadEquip();
 
+
+// ══════════════════════════════════════════════════════
+// COTIZADOR EN VIVO — CAMPEACH RD
+// ══════════════════════════════════════════════════════
+
+const EQUIPOS_CAMP = [
+  {id:"carpa3",  nombre:"Carpa 3 personas",     precio:800,  deposito:800,  icon:"⛺"},
+  {id:"carpa4",  nombre:"Carpa 4 personas",     precio:1000, deposito:1000, icon:"⛺"},
+  {id:"carpa6",  nombre:"Carpa 6 personas",     precio:1600, deposito:1600, icon:"⛺"},
+  {id:"carpa10", nombre:"Carpa 10 personas",    precio:1500, deposito:1500, icon:"⛺"},
+  {id:"carpaBaul",nombre:"Carpa de Baúl (auto)",precio:2500, deposito:2500, icon:"🚗"},
+  {id:"sleepbag",nombre:"Sleeping Bag",         precio:300,  deposito:300,  icon:"🛏"},
+  {id:"colchon",  nombre:"Colchón doble",        precio:500,  deposito:500,  icon:"🛏"},
+  {id:"sleeppad", nombre:"Sleeping Pad",         precio:300,  deposito:300,  icon:"🛏"},
+  {id:"hamaca",   nombre:"Hamaca",               precio:300,  deposito:300,  icon:"🌿"},
+  {id:"lampara",  nombre:"Lámpara solar",        precio:200,  deposito:200,  icon:"💡"},
+  {id:"silla",    nombre:"Silla plegable",       precio:300,  deposito:300,  icon:"🪑"},
+  {id:"abanico",  nombre:"Abanico portátil",     precio:300,  deposito:300,  icon:"💨"},
+  {id:"cargador", nombre:"Cargador portátil",    precio:400,  deposito:400,  icon:"🔋"},
+  {id:"nevera",   nombre:"Nevera portátil 55L",  precio:2000, deposito:2000, icon:"❄️"},
+];
+
+let cotState = {
+  camp: null,
+  fechaIn: "", fechaOut: "", noches: 0,
+  adultos: 2, ninos: [],
+  planes: {},
+  equipos: {},
+  equiposOpen: false,
+};
+
+function initCotizador(campObj) {
+  cotState.camp = campObj;
+  cotState.planes = {};
+  cotState.equipos = {};
+  cotState.equiposOpen = false;
+  cotState.adultos = 2;
+  cotState.ninos = [];
+  cotState.fechaIn = "";
+  cotState.fechaOut = "";
+  cotState.noches = 0;
+}
+
+
+function switchTab(tab) {
+  lbActiveTab = tab;
+  const infoBtn = document.getElementById('tab-btn-info');
+  const cotBtn  = document.getElementById('tab-btn-cot');
+  const infoContent = document.getElementById('tab-content-info');
+  const cotContent  = document.getElementById('tab-content-cot');
+  if (tab === 'info') {
+    if (infoBtn) { infoBtn.style.color='#0d5c3a'; infoBtn.style.borderBottomColor='#0d5c3a'; }
+    if (cotBtn)  { cotBtn.style.color='#a8a8a4';  cotBtn.style.borderBottomColor='transparent'; }
+    if (infoContent) infoContent.style.display='block';
+    if (cotContent)  cotContent.style.display='none';
+  } else {
+    if (cotBtn)  { cotBtn.style.color='#ff9820';  cotBtn.style.borderBottomColor='#ff9820'; }
+    if (infoBtn) { infoBtn.style.color='#a8a8a4'; infoBtn.style.borderBottomColor='transparent'; }
+    if (infoContent) infoContent.style.display='none';
+    if (cotContent)  { cotContent.style.display='block'; cotContent.innerHTML = renderCotizador(); }
+    document.getElementById('mi')?.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+
+function renderCotizador() {
+  const c = cotState.camp;
+  const info = INFO_CAMPS[c.nombre] || {};
+  const hoy = new Date().toISOString().split('T')[0];
+  const planes = info.servicios || [];
+
+  return `<div style="font-family:var(--ff-b)">
+
+  <style>
+    .cot-input{width:100%;padding:7px 10px;border:1px solid #e8e8e4;border-radius:8px;font-size:12px;color:#111110;background:white;outline:none;font-family:inherit;box-sizing:border-box}
+    .cot-input:focus{border-color:#0d5c3a}
+    .cot-btn-round{border-radius:50%;border:1px solid #e8e8e4;background:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;color:#3a3a38;flex-shrink:0}
+    .cot-btn-add{border-radius:50%;border:none;background:#0d5c3a;color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+    .cot-line-item{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;padding:5px 0;border-bottom:1px solid #f0f0ec}
+    .cot-line-item:last-child{border-bottom:none}
+  </style>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;min-height:420px">
+
+    <!-- IZQUIERDA: CONFIGURAR -->
+    <div style="padding:16px;border-right:1px solid #e8e8e4;overflow-y:auto;max-height:520px">
+
+      <!-- Fechas -->
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#a8a8a4;margin-bottom:8px">Fechas</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div>
+            <div style="font-size:10px;color:#a8a8a4;margin-bottom:3px">Entrada</div>
+            <input type="date" id="cb-in" class="cot-input" min="${hoy}" value="${cotState.fechaIn}" onchange="cbFechas()">
+          </div>
+          <div>
+            <div style="font-size:10px;color:#a8a8a4;margin-bottom:3px">Salida</div>
+            <input type="date" id="cb-out" class="cot-input" min="${hoy}" value="${cotState.fechaOut}" onchange="cbFechas()">
+          </div>
+        </div>
+        <div id="cb-noches-lbl" style="font-size:11px;color:#0d5c3a;font-weight:600;margin-top:5px;min-height:14px">
+          ${cotState.noches > 0 ? `${cotState.noches} noche${cotState.noches > 1 ? 's' : ''}` : ''}
+        </div>
+      </div>
+
+      <!-- Planes -->
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#a8a8a4;margin-bottom:8px">Planes (cantidades)</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          ${planes.map(s => {
+            const qty = cotState.planes[s.nombre] || 0;
+            const safeNombre = s.nombre.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            return `<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f5f4f0">
+              <div style="flex:1;min-width:0;margin-right:8px">
+                <div style="font-size:12px;color:#111110;line-height:1.3">${s.nombre}</div>
+                <div style="font-size:10px;color:#a8a8a4">${s.precio}</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+                <button class="cot-btn-round" style="width:24px;height:24px" onclick="cbPlan('${safeNombre}',-1)">−</button>
+                <span id="pqty-${btoa(s.nombre).replace(/=/g,'')}" style="font-size:13px;font-weight:700;min-width:18px;text-align:center;color:#111110">${qty}</span>
+                <button class="cot-btn-add" style="width:24px;height:24px" onclick="cbPlan('${safeNombre}',1)">+</button>
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- Personas -->
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#a8a8a4;margin-bottom:8px">Personas</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <div style="background:#f5f4f0;border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:10px;color:#a8a8a4;margin-bottom:6px">Adultos</div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:10px">
+              <button class="cot-btn-round" style="width:26px;height:26px" onclick="cbAdultos(-1)">−</button>
+              <span id="cb-adultos-n" style="font-size:18px;font-weight:700;color:#111110">${cotState.adultos}</span>
+              <button class="cot-btn-add" style="width:26px;height:26px" onclick="cbAdultos(1)">+</button>
+            </div>
+          </div>
+          <div style="background:#f5f4f0;border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:10px;color:#a8a8a4;margin-bottom:6px">Niños</div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:10px">
+              <button class="cot-btn-round" style="width:26px;height:26px" onclick="cbNinos(-1)">−</button>
+              <span id="cb-ninos-n" style="font-size:18px;font-weight:700;color:#111110">${cotState.ninos.length}</span>
+              <button class="cot-btn-add" style="width:26px;height:26px" onclick="cbNinos(1)">+</button>
+            </div>
+          </div>
+        </div>
+        <div id="cb-edades" style="display:flex;flex-wrap:wrap;gap:6px">
+          ${cotState.ninos.map((n,i) => `
+            <div style="display:flex;align-items:center;gap:5px;background:#f5f4f0;border-radius:6px;padding:4px 8px">
+              <span style="font-size:11px;color:#6b6b68">Niño ${i+1}:</span>
+              <select onchange="cbEdad(${i},this.value)" style="border:none;background:transparent;font-size:12px;color:#111110;outline:none;cursor:pointer">
+                ${[...Array(18)].map((_,a) => `<option value="${a}" ${n.edad===a?'selected':''}>${a===0?'< 1 año':a+' años'}</option>`).join('')}
+              </select>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- Equipos dropdown -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#a8a8a4;margin-bottom:8px">Equipos de camping</div>
+        <div style="border:1px solid #e8e8e4;border-radius:8px;overflow:hidden">
+          <button onclick="cbToggleEquipos()" style="width:100%;padding:10px 12px;background:white;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:inherit">
+            <span style="font-size:12.5px;color:#111110" id="cb-eq-label">
+              ${Object.values(cotState.equipos).some(v=>v>0) ? '✓ Equipos seleccionados' : '¿Quieres alquilar equipos de CAMPEACH?'}
+            </span>
+            <span id="cb-eq-arrow" style="font-size:14px;color:#a8a8a4;transition:transform .2s">${cotState.equiposOpen ? '▲' : '▼'}</span>
+          </button>
+          <div id="cb-eq-panel" style="display:${cotState.equiposOpen ? 'block' : 'none'};border-top:1px solid #e8e8e4">
+            <div style="background:#fff8e8;padding:8px 12px;font-size:11px;color:#854F0B;line-height:1.5">
+              Retiro el día anterior a la reserva · 6:00pm – 9:00pm<br>
+              <strong>Puntos:</strong> Bella Vista · Cacicazgos · Prol. 27 de Feb.
+            </div>
+            <div style="padding:8px 12px;display:flex;flex-direction:column;gap:6px">
+              ${EQUIPOS_CAMP.map(eq => {
+                const qty = cotState.equipos[eq.id] || 0;
+                return `<div style="display:flex;justify-content:space-between;align-items:center">
+                  <div style="flex:1;min-width:0;margin-right:8px">
+                    <div style="font-size:12px;color:#111110">${eq.nombre}</div>
+                    <div style="font-size:10px;color:#a8a8a4">RD$${eq.precio.toLocaleString('es-DO')}/noche + dep.</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:5px;flex-shrink:0">
+                    <button class="cot-btn-round" style="width:22px;height:22px;font-size:13px" onclick="cbEquipo('${eq.id}',-1)">−</button>
+                    <span id="eq-n-${eq.id}" style="font-size:12px;font-weight:700;min-width:14px;text-align:center">${qty}</span>
+                    <button class="cot-btn-add" style="width:22px;height:22px;font-size:13px" onclick="cbEquipo('${eq.id}',1)">+</button>
+                  </div>
+                </div>`;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DERECHA: RESUMEN EN VIVO -->
+    <div style="background:#f5f4f0;padding:16px;display:flex;flex-direction:column">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#a8a8a4;margin-bottom:12px">Tu reserva</div>
+      <div id="cb-resumen" style="flex:1">
+        ${cbRenderResumen()}
+      </div>
+    </div>
+
+  </div>
+  </div>`;
+}
+
+function cbRenderResumen() {
+  const c = cotState.camp;
+  const info = INFO_CAMPS[c.nombre] || {};
+  const n = cotState.noches;
+
+  let lineas = [];
+  let total = 0;
+  let deposito = 0;
+
+  // Planes
+  Object.entries(cotState.planes).forEach(([nombre, qty]) => {
+    if (qty <= 0) return;
+    const s = (info.servicios || []).find(s => s.nombre === nombre);
+    if (!s) return;
+    const precioNum = parseInt(s.precio.replace(/[^0-9]/g, '')) || 0;
+    if (precioNum > 0 && n > 0) {
+      const sub = precioNum * qty * n;
+      total += sub;
+      lineas.push({ label: `${nombre} ×${qty} ×${n}n`, val: sub });
+    } else if (precioNum > 0) {
+      lineas.push({ label: `${nombre} ×${qty}`, val: null, note: 'Elige fechas' });
+    }
+  });
+
+  // Niños (nota informativa)
+  if (cotState.ninos.length > 0) {
+    const edades = cotState.ninos.map((ni, i) => `Niño ${i+1}: ${ni.edad === 0 ? '<1a' : ni.edad + 'a'}`).join(', ');
+    lineas.push({ label: edades, val: null, note: 'Precio a confirmar', small: true });
+  }
+
+  // Equipos
+  let eqLineas = [];
+  EQUIPOS_CAMP.forEach(eq => {
+    const qty = cotState.equipos[eq.id] || 0;
+    if (qty > 0) {
+      if (n > 0) {
+        const sub = eq.precio * qty * n;
+        total += sub;
+        deposito += eq.deposito * qty;
+        eqLineas.push({ label: `${eq.nombre} ×${qty} ×${n}n`, val: sub });
+      } else {
+        eqLineas.push({ label: `${eq.nombre} ×${qty}`, val: null, note: 'Elige fechas' });
+      }
+    }
+  });
+
+  const hayLineas = lineas.length > 0 || eqLineas.length > 0;
+  const personas = `${cotState.adultos} adulto${cotState.adultos !== 1 ? 's' : ''}${cotState.ninos.length > 0 ? ` · ${cotState.ninos.length} niño${cotState.ninos.length !== 1 ? 's' : ''}` : ''}`;
+
+  const renderLine = (l) => `
+    <div class="cot-line-item">
+      <span style="color:#6b6b68;flex:1;min-width:0;padding-right:6px;${l.small ? 'font-size:10.5px;color:#a8a8a4' : ''}">${l.label}</span>
+      <span style="font-weight:700;color:${l.val ? '#111110' : '#a8a8a4'};white-space:nowrap;font-size:${l.small ? '10.5' : '12'}px">
+        ${l.val ? 'RD$' + l.val.toLocaleString('es-DO') : (l.note || '—')}
+      </span>
+    </div>`;
+
+  return `
+    ${n > 0 ? `<div style="font-size:11px;color:#6b6b68;margin-bottom:8px">${n} noche${n > 1 ? 's' : ''} · ${personas}</div>` : `<div style="font-size:11px;color:#a8a8a4;margin-bottom:8px">${personas}</div>`}
+
+    ${!hayLineas ? `
+      <div style="padding:20px 0;text-align:center">
+        <div style="font-size:24px;margin-bottom:8px">🏕</div>
+        <div style="font-size:12px;color:#a8a8a4;line-height:1.5">Selecciona fechas y<br>añade planes para cotizar</div>
+      </div>
+    ` : `
+      <div style="background:white;border-radius:8px;padding:10px 12px;margin-bottom:10px">
+        ${lineas.map(renderLine).join('')}
+        ${eqLineas.length > 0 ? `
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#a8a8a4;padding:8px 0 4px">Equipos</div>
+          ${eqLineas.map(renderLine).join('')}
+        ` : ''}
+      </div>
+
+      ${total > 0 ? `
+        <div style="background:white;border-radius:8px;padding:10px 12px;margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px">
+            <span style="font-size:12px;font-weight:700;color:#111110">Total estimado</span>
+            <span style="font-size:20px;font-weight:700;color:#0d5c3a">RD$${total.toLocaleString('es-DO')}</span>
+          </div>
+          ${deposito > 0 ? `<div style="font-size:10px;color:#a8a8a4">+ dep. reembolsable RD$${deposito.toLocaleString('es-DO')}</div>` : ''}
+          <div style="font-size:10px;color:#a8a8a4;margin-top:3px">* Estimado. Pamela confirmará precio final y disponibilidad.</div>
+        </div>
+      ` : ''}
+    `}
+
+    <button onclick="cbEnviarWA()" style="width:100%;background:#25D366;color:white;border:none;padding:11px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:auto">
+      <span style="font-size:16px">💬</span> Enviar cotización a WhatsApp
+    </button>
+    <div style="font-size:10px;color:#a8a8a4;text-align:center;margin-top:6px">Pamela recibirá todos los detalles</div>
+  `;
+}
+
+// ── HANDLERS ──────────────────────────────────────────
+
+function cbFechas() {
+  cotState.fechaIn  = document.getElementById('cb-in')?.value  || '';
+  cotState.fechaOut = document.getElementById('cb-out')?.value || '';
+  if (cotState.fechaIn && cotState.fechaOut) {
+    const d1 = new Date(cotState.fechaIn), d2 = new Date(cotState.fechaOut);
+    cotState.noches = Math.max(0, Math.round((d2 - d1) / 86400000));
+  } else cotState.noches = 0;
+  const lbl = document.getElementById('cb-noches-lbl');
+  if (lbl) lbl.innerHTML = cotState.noches > 0 ? `${cotState.noches} noche${cotState.noches > 1 ? 's' : ''}` : '';
+  cbRefresh();
+}
+
+function cbAdultos(d) {
+  cotState.adultos = Math.max(1, cotState.adultos + d);
+  const el = document.getElementById('cb-adultos-n');
+  if (el) el.textContent = cotState.adultos;
+  cbRefresh();
+}
+
+function cbNinos(d) {
+  if (d > 0) cotState.ninos.push({ edad: 5 });
+  else if (d < 0 && cotState.ninos.length > 0) cotState.ninos.pop();
+  const el = document.getElementById('cb-ninos-n');
+  if (el) el.textContent = cotState.ninos.length;
+  const ed = document.getElementById('cb-edades');
+  if (ed) ed.innerHTML = cotState.ninos.map((n, i) => `
+    <div style="display:flex;align-items:center;gap:5px;background:#f5f4f0;border-radius:6px;padding:4px 8px">
+      <span style="font-size:11px;color:#6b6b68">Niño ${i+1}:</span>
+      <select onchange="cbEdad(${i},this.value)" style="border:none;background:transparent;font-size:12px;color:#111110;outline:none;cursor:pointer">
+        ${[...Array(18)].map((_, a) => `<option value="${a}" ${n.edad === a ? 'selected' : ''}>${a === 0 ? '< 1 año' : a + ' años'}</option>`).join('')}
+      </select>
+    </div>
+  `).join('');
+  cbRefresh();
+}
+
+function cbEdad(i, val) {
+  cotState.ninos[i].edad = parseInt(val);
+  cbRefresh();
+}
+
+function cbPlan(nombre, delta) {
+  if (!cotState.planes) cotState.planes = {};
+  cotState.planes[nombre] = Math.max(0, (cotState.planes[nombre] || 0) + delta);
+  const key = btoa(nombre).replace(/=/g, '');
+  const el = document.getElementById('pqty-' + key);
+  if (el) el.textContent = cotState.planes[nombre];
+  cbRefresh();
+}
+
+function cbEquipo(id, delta) {
+  cotState.equipos[id] = Math.max(0, (cotState.equipos[id] || 0) + delta);
+  const el = document.getElementById('eq-n-' + id);
+  if (el) el.textContent = cotState.equipos[id];
+  // Update label
+  const hasEq = Object.values(cotState.equipos).some(v => v > 0);
+  const lbl = document.getElementById('cb-eq-label');
+  if (lbl) lbl.textContent = hasEq ? '✓ Equipos seleccionados' : '¿Quieres alquilar equipos de CAMPEACH?';
+  cbRefresh();
+}
+
+function cbToggleEquipos() {
+  cotState.equiposOpen = !cotState.equiposOpen;
+  const panel = document.getElementById('cb-eq-panel');
+  const arrow = document.getElementById('cb-eq-arrow');
+  if (panel) panel.style.display = cotState.equiposOpen ? 'block' : 'none';
+  if (arrow) arrow.textContent = cotState.equiposOpen ? '▲' : '▼';
+}
+
+function cbRefresh() {
+  const el = document.getElementById('cb-resumen');
+  if (el) el.innerHTML = cbRenderResumen();
+}
+
+function cbEnviarWA() {
+  const c = cotState.camp;
+  const info = INFO_CAMPS[c.nombre] || {};
+  const n = cotState.noches;
+
+  let msg = `*COTIZACIÓN CAMPEACH RD*\n`;
+  msg += `━━━━━━━━━━━━━━━━━━━\n`;
+  msg += `*Campamento:* ${c.nombre}\n`;
+  msg += `*Ubicación:* ${info.ubicacion || c.region}\n`;
+
+  if (cotState.fechaIn && cotState.fechaOut) {
+    const fmt = d => new Date(d + 'T12:00').toLocaleDateString('es-DO', { weekday: 'short', day: 'numeric', month: 'short' });
+    msg += `*Entrada:* ${fmt(cotState.fechaIn)}\n`;
+    msg += `*Salida:* ${fmt(cotState.fechaOut)}\n`;
+    msg += `*Noches:* ${n}\n`;
+  } else {
+    msg += `*Fechas:* Por confirmar\n`;
+  }
+
+  msg += `*Personas:* ${cotState.adultos} adulto${cotState.adultos !== 1 ? 's' : ''}`;
+  if (cotState.ninos.length > 0) {
+    msg += ` + ${cotState.ninos.length} niño${cotState.ninos.length !== 1 ? 's' : ''} (${cotState.ninos.map((ni, i) => `Niño ${i+1}: ${ni.edad === 0 ? '<1a' : ni.edad + 'a'}`).join(', ')})`;
+  }
+  msg += `\n`;
+
+  const planesSelec = Object.entries(cotState.planes || {}).filter(([, qty]) => qty > 0);
+  if (planesSelec.length > 0) {
+    msg += `\n*Planes:*\n`;
+    let total = 0;
+    planesSelec.forEach(([nombre, qty]) => {
+      const s = (info.servicios || []).find(s => s.nombre === nombre);
+      const precio = s ? s.precio : '';
+      const precioNum = parseInt(precio.replace(/[^0-9]/g, '')) || 0;
+      const sub = n > 0 && precioNum > 0 ? precioNum * qty * n : 0;
+      total += sub;
+      msg += `   • ${nombre} ×${qty}${n > 0 && sub > 0 ? ` = RD$${sub.toLocaleString('es-DO')}` : ` (${precio})`}\n`;
+    });
+  }
+
+  const eqSel = EQUIPOS_CAMP.filter(eq => (cotState.equipos[eq.id] || 0) > 0);
+  if (eqSel.length > 0) {
+    msg += `\n*Equipos de alquiler:*\n`;
+    let eqTotal = 0, depTotal = 0;
+    eqSel.forEach(eq => {
+      const qty = cotState.equipos[eq.id];
+      const sub = n > 0 ? eq.precio * qty * n : eq.precio * qty;
+      eqTotal += sub;
+      depTotal += eq.deposito * qty;
+      msg += `   • ${eq.nombre} ×${qty}${n > 0 ? ` ×${n}n = RD$${sub.toLocaleString('es-DO')}` : ''}\n`;
+    });
+    msg += `   Depósito reembolsable: RD$${depTotal.toLocaleString('es-DO')}\n`;
+    msg += `   Punto de retiro preferido: (confirmar)\n`;
+  }
+
+  // Total
+  let grandTotal = 0;
+  planesSelec.forEach(([nombre, qty]) => {
+    const s = (info.servicios || []).find(s => s.nombre === nombre);
+    const precioNum = parseInt((s?.precio || '').replace(/[^0-9]/g, '')) || 0;
+    if (n > 0) grandTotal += precioNum * qty * n;
+  });
+  eqSel.forEach(eq => {
+    if (n > 0) grandTotal += eq.precio * (cotState.equipos[eq.id] || 0) * n;
+  });
+
+  if (grandTotal > 0) msg += `\n*Total estimado:* RD$${grandTotal.toLocaleString('es-DO')}\n`;
+  msg += `\n━━━━━━━━━━━━━━━━━━━\n`;
+  msg += `Favor confirmar disponibilidad del campamento${eqSel.length > 0 ? ' y equipos' : ''} para las fechas indicadas. Gracias!`;
+
+  window.open(`https://wa.me/18299370674?text=${encodeURIComponent(msg)}`, '_blank');
+}
 </script>
 </body>
 </html>
